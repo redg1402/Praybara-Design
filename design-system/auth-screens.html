@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Praybara — Auth Screens v3</title>
+<title>Praybara — Auth Screens v4</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <script src="https://mcp.figma.com/mcp/html-to-design/capture.js" async></script>
 <style>
@@ -11,40 +11,84 @@
     font-family: 'remixicon';
     src: url('https://cdn.jsdelivr.net/npm/remixicon@4.6.0/fonts/remixicon.woff2') format('woff2'),
          url('https://cdn.jsdelivr.net/npm/remixicon@4.6.0/fonts/remixicon.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
+    font-weight: normal; font-style: normal;
   }
-  .ri { font-family: 'remixicon'; font-style: normal; line-height: 1; display: inline-block; }
-</style>
-<style>
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { background: #060C18; font-family: 'DM Sans', sans-serif; padding: 80px; min-width: 1440px; }
 
-  .page-header { margin-bottom: 72px; border-bottom: 1px solid rgba(255,255,255,0.08); padding-bottom: 48px; }
-  .page-tag { font-size: 11px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: #E8B86D; margin-bottom: 12px; }
-  .page-title { font-family: 'Cormorant Garamond', serif; font-size: 52px; font-weight: 700; color: #F5F0E8; line-height: 1; margin-bottom: 16px; }
+  /* ─── Reset ─── */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  /* ─── Page ─── */
+  body {
+    background: #060C18;
+    font-family: 'DM Sans', sans-serif;
+    padding: 80px;
+    min-width: 1440px;
+    display: flex;
+    flex-direction: column;
+    gap: 80px;
+  }
+
+  /* ─── Page Header ─── */
+  .page-header {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding-bottom: 48px;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+  .page-tag { font-size: 11px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: #E8B86D; }
+  .page-title { font-family: 'Cormorant Garamond', serif; font-size: 52px; font-weight: 700; color: #F5F0E8; line-height: 1; }
   .page-subtitle { font-size: 15px; color: #A89880; max-width: 620px; line-height: 1.6; }
 
-  /* SCREEN FRAME: iPhone 16 Pro = 393 × 852 */
-  .screens-row { display: flex; gap: 32px; flex-wrap: wrap; margin-bottom: 80px; align-items: flex-start; }
-  .screen-wrap { display: flex; flex-direction: column; gap: 14px; }
+  /* ─── Section ─── */
+  .section {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+  }
+  .section-header {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .section-title { font-family: 'Cormorant Garamond', serif; font-size: 28px; font-weight: 600; color: #F5F0E8; }
+  .section-file { font-size: 12px; color: #E8B86D; font-family: monospace; }
+
+  /* ─── Screens Row ─── */
+  .screens-row {
+    display: flex;
+    flex-direction: row;
+    gap: 32px;
+    flex-wrap: wrap;
+    align-items: flex-start;
+  }
+
+  /* ─── Screen Wrap ─── */
+  .screen-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
   .screen-label { font-size: 11px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: rgba(255,255,255,0.3); }
   .screen-sublabel { font-size: 11px; color: #E8B86D; font-family: monospace; }
-  .screen-note { font-size: 11px; color: rgba(255,255,255,0.25); margin-top: 4px; }
+  .screen-note { font-size: 11px; color: rgba(255,255,255,0.25); }
 
+  /* ─── iPhone Frame ─── */
   .iphone {
     width: 393px;
     height: 852px;
     border-radius: 48px;
     overflow: hidden;
-    position: relative;
     background: linear-gradient(135deg, #0B1120 0%, #1B2A50 55%, #2D1B69 100%);
     border: 1px solid rgba(255,255,255,0.1);
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
   }
 
-  /* Stars */
+  /* ─── Stars background ─── */
   .stars {
-    position: absolute; inset: 0; pointer-events: none;
+    position: absolute; inset: 0; pointer-events: none; border-radius: 48px;
     background-image:
       radial-gradient(1px 1px at 8% 15%, rgba(255,255,255,0.55) 0%, transparent 100%),
       radial-gradient(1.2px 1.2px at 23% 42%, rgba(255,255,255,0.45) 0%, transparent 100%),
@@ -55,451 +99,736 @@
       radial-gradient(1.2px 1.2px at 92% 78%, rgba(255,255,255,0.45) 0%, transparent 100%),
       radial-gradient(1px 1px at 36% 88%, rgba(255,255,255,0.3) 0%, transparent 100%),
       radial-gradient(0.8px 0.8px at 55% 65%, rgba(255,255,255,0.4) 0%, transparent 100%),
-      radial-gradient(1.5px 1.5px at 75% 92%, rgba(255,255,255,0.35) 0%, transparent 100%),
       radial-gradient(1px 1px at 5% 35%, rgba(255,255,255,0.5) 0%, transparent 100%),
       radial-gradient(0.8px 0.8px at 88% 12%, rgba(255,255,255,0.45) 0%, transparent 100%);
   }
+  .iphone-inner {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
 
-  /* Glass card */
-  .glass {
+  /* ─── Status Bar ─── */
+  .status-bar {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 28px 0;
+    flex-shrink: 0;
+  }
+  .status-time { font-size: 15px; font-weight: 600; color: #F5F0E8; }
+  .status-icons { display: flex; flex-direction: row; gap: 5px; align-items: center; font-size: 12px; color: #F5F0E8; }
+
+  /* ─── Screen Content ─── */
+  .screen-content {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    padding: 0 24px 32px;
+    gap: 0;
+    overflow: hidden;
+  }
+
+  /* ─── Logo Area ─── */
+  .logo-area {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding: 24px 0 0;
+  }
+  .logo-circle {
+    width: 60px; height: 60px;
+    background: rgba(232,184,109,0.12);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'remixicon'; font-size: 26px; color: #E8B86D;
+  }
+  .logo-name { font-family: 'Cormorant Garamond', serif; font-size: 30px; font-weight: 700; color: #F5F0E8; }
+  .logo-sub { font-size: 13px; color: #A89880; }
+
+  /* ─── Glass Card ─── */
+  .glass-card {
     background: rgba(255,255,255,0.06);
     backdrop-filter: blur(24px);
     -webkit-backdrop-filter: blur(24px);
     border: 1px solid rgba(255,255,255,0.12);
     box-shadow: 0 8px 20px rgba(0,0,0,0.4);
     border-radius: 24px;
+    display: flex;
+    flex-direction: column;
+    padding: 24px;
+    gap: 18px;
   }
 
-  /* Gold button */
-  .btn-gold {
-    background: linear-gradient(90deg,#E8B86D,#F0C878,#C8923A);
-    color: #1A1611; border-radius: 16px; border: none;
-    font-family: 'DM Sans',sans-serif; font-size: 15px; font-weight: 600;
-    height: 50px; width: 100%; cursor: pointer; display: flex; align-items: center; justify-content: center;
+  /* ─── Card Header ─── */
+  .card-header {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+  }
+  .card-title { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 600; color: #F5F0E8; }
+  .card-subtitle { font-size: 12px; color: #A89880; }
+
+  /* ─── Fields Group ─── */
+  .fields-group {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
   }
 
-  /* Apple button */
-  .btn-apple {
-    background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.15);
-    border-radius: 16px; height: 50px; width: 100%; display: flex; align-items: center;
-    justify-content: center; gap: 8px; color: #F5F0E8; font-family: 'DM Sans',sans-serif;
-    font-size: 14px; font-weight: 600; cursor: pointer;
+  /* ─── Input Field ─── */
+  .field {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
   }
-
-  /* Input */
-  .field { display: flex; flex-direction: column; gap: 5px; }
   .field-label { font-size: 11px; font-weight: 500; color: rgba(255,255,255,0.5); }
-  .field-label-error { color: #E57373; }
-  .field-input { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 14px; padding: 13px 14px; display: flex; align-items: center; justify-content: space-between; }
-  .field-input-error { border: 1.5px solid rgba(229,115,115,0.75); }
-  .field-text { font-size: 14px; }
-  .field-placeholder { color: rgba(255,255,255,0.22); }
-  .field-value { color: #F5F0E8; }
-  .field-value-dots { color: rgba(255,255,255,0.5); letter-spacing: 2px; }
-  .field-error-msg { font-size: 11px; color: #E57373; font-weight: 500; display: flex; align-items: center; gap: 3px; }
+  .field-label.error { color: #E57373; }
+  .field-input {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+    padding: 13px 14px;
+    border-radius: 14px;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+  }
+  .field-input.focused { background: rgba(255,255,255,0.08); border-color: rgba(232,184,109,0.65); }
+  .field-input.error { background: rgba(255,255,255,0.05); border: 1.5px solid rgba(229,115,115,0.75); }
+  .field-text { flex: 1; font-size: 14px; color: rgba(255,255,255,0.22); }
+  .field-text.filled { color: #F5F0E8; }
+  .field-text.dots { color: rgba(255,255,255,0.5); letter-spacing: 2px; }
+  .field-icon { font-family: 'remixicon'; font-style: normal; font-size: 15px; color: rgba(255,255,255,0.3); line-height: 1; }
+  .field-icon.error { color: #E57373; }
+  .field-error-msg {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 4px;
+    font-size: 11px; color: #E57373; font-weight: 500;
+  }
+  .field-error-msg .field-icon { font-size: 11px; }
 
-  /* Divider */
-  .divider { display: flex; align-items: center; gap: 8px; }
+  /* ─── Divider ─── */
+  .auth-divider {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+  }
   .divider-line { flex: 1; height: 1px; background: rgba(255,255,255,0.1); }
-  .divider-text { font-size: 11px; color: rgba(255,255,255,0.25); }
+  .divider-text { font-size: 11px; color: rgba(255,255,255,0.25); white-space: nowrap; }
 
-  /* Status bar */
-  .status-bar { display: flex; justify-content: space-between; align-items: center; padding: 14px 28px 0; }
-  .status-time { font-size: 15px; font-weight: 600; color: #F5F0E8; }
-  .status-icons { display: flex; gap: 5px; align-items: center; font-size: 12px; color: #F5F0E8; }
+  /* ─── Buttons ─── */
+  .btn-gold {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 50px;
+    border-radius: 16px;
+    border: none;
+    background: linear-gradient(90deg, #E8B86D, #F0C878, #C8923A);
+    color: #1A1611;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px; font-weight: 600;
+    cursor: pointer;
+  }
+  .btn-apple {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    height: 50px;
+    border-radius: 16px;
+    border: 1px solid rgba(255,255,255,0.15);
+    background: rgba(255,255,255,0.07);
+    color: #F5F0E8;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px; font-weight: 600;
+    cursor: pointer;
+  }
+  .btn-apple .apple-icon { font-family: 'remixicon'; font-style: normal; font-size: 17px; line-height: 1; }
 
-  /* Logo */
-  .logo-area { display: flex; flex-direction: column; align-items: center; gap: 8px; }
-  .logo-circle { width: 60px; height: 60px; background: rgba(232,184,109,0.12); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 26px; }
-  .logo-name { font-family: 'Cormorant Garamond',serif; font-size: 30px; font-weight: 700; color: #F5F0E8; }
-  .logo-sub { font-size: 13px; color: #A89880; }
+  /* ─── Back Button ─── */
+  .back-btn {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 4px;
+    color: rgba(255,255,255,0.55);
+    font-size: 13px; font-weight: 500;
+    background: none; border: none; cursor: pointer;
+    align-self: flex-start;
+  }
+  .back-btn .back-icon { font-family: 'remixicon'; font-style: normal; font-size: 18px; line-height: 1; }
 
-  /* Forgot pw */
-  .forgot-link { display: flex; align-items: center; gap: 4px; color: #E8B86D; font-size: 12px; font-weight: 500; }
+  /* ─── Forgot Link ─── */
+  .forgot-link {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    color: #E8B86D;
+    font-size: 12px; font-weight: 500;
+  }
+  .forgot-link .key-icon { font-family: 'remixicon'; font-style: normal; font-size: 13px; line-height: 1; }
 
-  /* Register link */
-  .register-link { display: flex; justify-content: center; gap: 4px; }
+  /* ─── Register Link ─── */
+  .register-link {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    padding: 12px 0 0;
+  }
   .register-link span { font-size: 12px; color: rgba(255,255,255,0.4); }
-  .register-link a { font-size: 12px; font-weight: 600; color: #E8B86D; }
+  .register-link a { font-size: 12px; font-weight: 600; color: #E8B86D; text-decoration: none; }
 
-  /* Back button */
-  .back-btn { display: flex; align-items: center; gap: 5px; color: rgba(255,255,255,0.55); font-size: 13px; font-weight: 500; }
+  /* ─── Info Hint ─── */
+  .info-hint {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 8px;
+    padding: 12px;
+    background: rgba(232,184,109,0.07);
+    border: 1px solid rgba(232,184,109,0.18);
+    border-radius: 10px;
+  }
+  .info-hint .info-icon { font-family: 'remixicon'; font-style: normal; font-size: 14px; color: rgba(232,184,109,0.7); line-height: 1; flex-shrink: 0; padding-top: 1px; }
+  .info-hint span { font-size: 12px; color: rgba(255,255,255,0.45); line-height: 1.5; }
 
-  /* Screen section header */
-  .screens-section { margin-bottom: 80px; }
-  .screens-section-title { font-family: 'Cormorant Garamond',serif; font-size: 28px; font-weight: 600; color: #F5F0E8; margin-bottom: 8px; }
-  .screens-section-file { font-size: 12px; color: #E8B86D; font-family: monospace; margin-bottom: 32px; }
+  /* ─── Screen Header (Register/ForgotPw) ─── */
+  .screen-header {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 20px 0 8px;
+  }
+  .screen-heading { font-family: 'Cormorant Garamond', serif; font-size: 26px; font-weight: 700; color: #F5F0E8; }
+  .screen-subheading { font-size: 13px; color: #A89880; }
 
-  /* success state */
-  .success-glow { width: 100px; height: 100px; background: rgba(232,184,109,0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; position: relative; }
-  .success-glow::before { content:''; position:absolute; width:130px; height:130px; background:rgba(232,184,109,0.05); border-radius:50%; }
-  .success-icon { font-size: 40px; z-index: 1; }
+  /* ─── Spacer flex ─── */
+  .flex-grow { flex: 1; }
+  .spacer-sm { height: 16px; flex-shrink: 0; }
+  .spacer-md { height: 24px; flex-shrink: 0; }
+  .spacer-lg { height: 32px; flex-shrink: 0; }
+
+  /* ─── Legal text ─── */
+  .legal-text { font-size: 10px; color: rgba(255,255,255,0.25); text-align: center; line-height: 1.5; }
+
+  /* ─── Success State ─── */
+  .success-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    gap: 28px;
+    padding: 32px 8px;
+  }
+  .success-glow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100px; height: 100px;
+    background: rgba(232,184,109,0.1);
+    border-radius: 50%;
+    position: relative;
+  }
+  .success-glow::before {
+    content: '';
+    position: absolute;
+    width: 130px; height: 130px;
+    background: rgba(232,184,109,0.05);
+    border-radius: 50%;
+  }
+  .success-icon { font-family: 'remixicon'; font-style: normal; font-size: 40px; color: #E8B86D; line-height: 1; z-index: 1; }
+  .success-text {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    text-align: center;
+  }
+  .success-title { font-family: 'Cormorant Garamond', serif; font-size: 26px; font-weight: 700; color: #F5F0E8; }
+  .success-body { font-size: 13px; color: #A89880; line-height: 1.6; }
+  .success-body strong { color: #F5F0E8; font-weight: 400; }
+  .scripture {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+  }
+  .scripture-verse { font-family: 'Cormorant Garamond', serif; font-size: 16px; font-style: italic; font-weight: 300; color: rgba(232,184,109,0.75); }
+  .scripture-ref { font-family: 'Cormorant Garamond', serif; font-size: 11px; font-weight: 600; color: rgba(255,255,255,0.28); }
+  .success-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+  }
+  .success-note { font-size: 11px; color: rgba(255,255,255,0.25); text-align: center; }
 </style>
 </head>
 <body>
 
-<div class="page-header">
-  <div class="page-tag">Praybara Design System</div>
-  <h1 class="page-title">Auth Screens <span style="font-size:22px; opacity:0.4;">v3</span></h1>
-  <p class="page-subtitle">All authentication screens at iPhone 16 Pro resolution (393 × 852). Each screen shown in all relevant states. Source: Features/Auth/</p>
-</div>
+<!-- ════════════════════════════════════════
+     PAGE HEADER
+════════════════════════════════════════ -->
+<header class="page-header" data-name="Page/Header">
+  <p class="page-tag" data-name="Label/Tag">Praybara Design System</p>
+  <h1 class="page-title" data-name="Heading/H1">Auth Screens <span style="font-size:22px; opacity:0.4;">v4</span></h1>
+  <p class="page-subtitle" data-name="Label/Subtitle">All authentication screens at iPhone 16 Pro resolution (393 × 852). Each screen shown in all relevant states. Source: Features/Auth/</p>
+</header>
 
-<!-- LOGIN SCREENS -->
-<div class="screens-section">
-  <h2 class="screens-section-title">LoginView</h2>
-  <div class="screens-section-file">Features/Auth/LoginView.swift → AuthContainerView screen: .login</div>
+<!-- ════════════════════════════════════════
+     LOGIN VIEW
+════════════════════════════════════════ -->
+<section class="section" data-name="Section/LoginView">
+  <div class="section-header" data-name="Section/Header">
+    <h2 class="section-title" data-name="Heading/H2">LoginView</h2>
+    <p class="section-file" data-name="Label/File">Features/Auth/LoginView.swift → AuthContainerView screen: .login</p>
+  </div>
 
-  <div class="screens-row">
+  <div class="screens-row" data-name="Screens/Row">
 
-    <!-- LOGIN: DEFAULT -->
-    <div class="screen-wrap">
-      <div class="screen-label">Default State</div>
-      <div class="screen-sublabel">email: "" · password: "" · failedAttempts: 0</div>
-      <div class="iphone">
-        <div class="stars"></div>
-        <div style="position:relative; height:100%; display:flex; flex-direction:column; padding: 0 24px 32px;">
-          <div class="status-bar">
+    <!-- LOGIN: Default -->
+    <div class="screen-wrap" data-name="Screen/Login/Default">
+      <p class="screen-label">Default State</p>
+      <p class="screen-sublabel">email: "" · password: "" · failedAttempts: 0</p>
+      <div class="iphone" data-name="Artboard/iPhone16Pro">
+        <div class="iphone-inner">
+          <div class="stars"></div>
+          <!-- Status Bar -->
+          <div class="status-bar" data-name="StatusBar">
             <span class="status-time">9:41</span>
             <div class="status-icons"><span>●●●</span><span>WiFi</span><span>🔋</span></div>
           </div>
-          <div style="flex:1; display:flex; flex-direction:column; justify-content:center; gap:32px;">
-            <div class="logo-area">
-              <div class="logo-circle">🕊</div>
-              <div class="logo-name">Praybara</div>
-              <div class="logo-sub">Tu compañero espiritual</div>
+          <!-- Content -->
+          <div class="screen-content" data-name="Screen/Content">
+            <!-- Logo -->
+            <div class="logo-area" data-name="Logo/Area">
+              <div class="logo-circle" data-name="Logo/Icon">&#xF36C;</div>
+              <p class="logo-name" data-name="Logo/Name">Praybara</p>
+              <p class="logo-sub" data-name="Logo/Subtitle">Tu compañero espiritual</p>
             </div>
-            <div class="glass" style="padding:24px; display:flex; flex-direction:column; gap:20px;">
-              <div>
-                <div style="font-family:'Cormorant Garamond',serif; font-size:20px; font-weight:600; color:#F5F0E8; margin-bottom:3px;">Bienvenido de vuelta</div>
-                <div style="font-size:12px; color:#A89880;">Entra a tu espacio devocional</div>
+            <div class="spacer-lg"></div>
+            <!-- Form Card -->
+            <div class="glass-card" data-name="Card/LoginForm">
+              <div class="card-header" data-name="Card/Header">
+                <p class="card-title">Bienvenido de vuelta</p>
+                <p class="card-subtitle">Entra a tu espacio devocional</p>
               </div>
-              <div style="display:flex; flex-direction:column; gap:14px;">
-                <div class="field">
-                  <div class="field-label">Correo electrónico</div>
-                  <div class="field-input"><span class="field-text field-placeholder">tu@correo.com</span></div>
+              <div class="fields-group" data-name="Fields/Group">
+                <div class="field" data-name="Input/Email/Default">
+                  <p class="field-label">Correo electrónico</p>
+                  <div class="field-input">
+                    <span class="field-text">tu@correo.com</span>
+                  </div>
                 </div>
-                <div class="field">
-                  <div class="field-label">Contraseña</div>
-                  <div class="field-input"><span class="field-text field-placeholder">••••••••</span><span class="ri" style="font-size:15px; color:rgba(255,255,255,0.3);">&#xECB5;</span></div>
+                <div class="field" data-name="Input/Password/Default">
+                  <p class="field-label">Contraseña</p>
+                  <div class="field-input">
+                    <span class="field-text">••••••••</span>
+                    <span class="field-icon">&#xECB5;</span>
+                  </div>
                 </div>
               </div>
-              <div class="btn-gold">Iniciar sesión</div>
-              <div class="divider"><div class="divider-line"></div><span class="divider-text">o continúa con</span><div class="divider-line"></div></div>
-              <div class="btn-apple"><span class="ri" style="font-size:16px;">&#xEA3F;</span> Continuar con Apple</div>
+              <button class="btn-gold" data-name="Button/Primary">Iniciar sesión</button>
+              <div class="auth-divider" data-name="Divider/Auth">
+                <div class="divider-line"></div>
+                <span class="divider-text">o continúa con</span>
+                <div class="divider-line"></div>
+              </div>
+              <button class="btn-apple" data-name="Button/Apple">
+                <span class="apple-icon">&#xEA3F;</span>
+                Continuar con Apple
+              </button>
+            </div>
+            <div class="flex-grow"></div>
+            <div class="register-link" data-name="Link/Register">
+              <span>¿No tienes cuenta?</span>
+              <a>Regístrate</a>
             </div>
           </div>
-          <div class="register-link"><span>¿No tienes cuenta?</span><a>Regístrate</a></div>
         </div>
       </div>
-      <div class="screen-note">Forgot password link hidden (0 attempts)</div>
+      <p class="screen-note">Forgot password link hidden (0 attempts)</p>
     </div>
 
-    <!-- LOGIN: EMAIL ERROR -->
-    <div class="screen-wrap">
-      <div class="screen-label">Email Error</div>
-      <div class="screen-sublabel">emailError: .invalidEmail · failedAttempts: 1</div>
-      <div class="iphone">
-        <div class="stars"></div>
-        <div style="position:relative; height:100%; display:flex; flex-direction:column; padding: 0 24px 32px;">
-          <div class="status-bar">
+    <!-- LOGIN: Email Error -->
+    <div class="screen-wrap" data-name="Screen/Login/EmailError">
+      <p class="screen-label">Email Error</p>
+      <p class="screen-sublabel">emailError: .invalidEmail · failedAttempts: 1</p>
+      <div class="iphone" data-name="Artboard/iPhone16Pro">
+        <div class="iphone-inner">
+          <div class="stars"></div>
+          <div class="status-bar" data-name="StatusBar">
             <span class="status-time">9:41</span>
             <div class="status-icons"><span>●●●</span><span>WiFi</span><span>🔋</span></div>
           </div>
-          <div style="flex:1; display:flex; flex-direction:column; justify-content:center; gap:32px;">
-            <div class="logo-area">
-              <div class="logo-circle">🕊</div>
-              <div class="logo-name">Praybara</div>
-              <div class="logo-sub">Tu compañero espiritual</div>
+          <div class="screen-content" data-name="Screen/Content">
+            <div class="logo-area" data-name="Logo/Area">
+              <div class="logo-circle" data-name="Logo/Icon">&#xF36C;</div>
+              <p class="logo-name">Praybara</p>
+              <p class="logo-sub">Tu compañero espiritual</p>
             </div>
-            <div class="glass" style="padding:24px; display:flex; flex-direction:column; gap:20px;">
-              <div>
-                <div style="font-family:'Cormorant Garamond',serif; font-size:20px; font-weight:600; color:#F5F0E8; margin-bottom:3px;">Bienvenido de vuelta</div>
-                <div style="font-size:12px; color:#A89880;">Entra a tu espacio devocional</div>
+            <div class="spacer-lg"></div>
+            <div class="glass-card" data-name="Card/LoginForm">
+              <div class="card-header">
+                <p class="card-title">Bienvenido de vuelta</p>
+                <p class="card-subtitle">Entra a tu espacio devocional</p>
               </div>
-              <div style="display:flex; flex-direction:column; gap:14px;">
-                <div class="field">
-                  <div class="field-label field-label-error">Correo electrónico</div>
-                  <div class="field-input field-input-error"><span class="field-text field-value">rafael@mal</span><span class="ri" style="font-size:14px; color:#E57373;">&#xECA0;</span></div>
-                  <div class="field-error-msg"><span class="ri" style="font-size:11px;color:#E57373;">&#xECA0;</span> El correo no tiene un formato válido</div>
+              <div class="fields-group">
+                <div class="field" data-name="Input/Email/Error">
+                  <p class="field-label error">Correo electrónico</p>
+                  <div class="field-input error">
+                    <span class="field-text filled">rafael@mal</span>
+                    <span class="field-icon error">&#xECA0;</span>
+                  </div>
+                  <div class="field-error-msg" data-name="Error/Message">
+                    <span class="field-icon error">&#xECA0;</span>
+                    El correo no tiene un formato válido
+                  </div>
                 </div>
-                <div class="field">
-                  <div class="field-label">Contraseña</div>
-                  <div class="field-input"><span class="field-text field-value-dots">••••••••</span><span class="ri" style="font-size:15px; color:rgba(255,255,255,0.3);">&#xECB5;</span></div>
+                <div class="field" data-name="Input/Password/Default">
+                  <p class="field-label">Contraseña</p>
+                  <div class="field-input">
+                    <span class="field-text dots">••••••••</span>
+                    <span class="field-icon">&#xECB5;</span>
+                  </div>
                 </div>
               </div>
-              <div class="btn-gold">Iniciar sesión</div>
-              <div class="divider"><div class="divider-line"></div><span class="divider-text">o continúa con</span><div class="divider-line"></div></div>
-              <div class="btn-apple"><span class="ri" style="font-size:16px;">&#xEA3F;</span> Continuar con Apple</div>
+              <button class="btn-gold" data-name="Button/Primary">Iniciar sesión</button>
+              <div class="auth-divider"><div class="divider-line"></div><span class="divider-text">o continúa con</span><div class="divider-line"></div></div>
+              <button class="btn-apple" data-name="Button/Apple"><span class="apple-icon">&#xEA3F;</span>Continuar con Apple</button>
             </div>
+            <div class="flex-grow"></div>
+            <div class="register-link"><span>¿No tienes cuenta?</span><a>Regístrate</a></div>
           </div>
-          <div class="register-link"><span>¿No tienes cuenta?</span><a>Regístrate</a></div>
         </div>
       </div>
-      <div class="screen-note">Both field values preserved for correction</div>
+      <p class="screen-note">Values preserved · error below email only</p>
     </div>
 
-    <!-- LOGIN: PASSWORD ERROR + FORGOT PW -->
-    <div class="screen-wrap">
-      <div class="screen-label">Password Error + Forgot Password</div>
-      <div class="screen-sublabel">passwordError: .wrongPassword · failedAttempts: 2 → showForgotPassword = true</div>
-      <div class="iphone">
-        <div class="stars"></div>
-        <div style="position:relative; height:100%; display:flex; flex-direction:column; padding: 0 24px 32px;">
-          <div class="status-bar">
+    <!-- LOGIN: Password Error + Forgot Password -->
+    <div class="screen-wrap" data-name="Screen/Login/PasswordError+ForgotPw">
+      <p class="screen-label">Password Error + Forgot Password</p>
+      <p class="screen-sublabel">passwordError: .wrongPassword · failedAttempts: 2 → showForgotPassword: true</p>
+      <div class="iphone" data-name="Artboard/iPhone16Pro">
+        <div class="iphone-inner">
+          <div class="stars"></div>
+          <div class="status-bar" data-name="StatusBar">
             <span class="status-time">9:41</span>
             <div class="status-icons"><span>●●●</span><span>WiFi</span><span>🔋</span></div>
           </div>
-          <div style="flex:1; display:flex; flex-direction:column; justify-content:center; gap:24px;">
-            <div class="logo-area">
-              <div class="logo-circle">🕊</div>
-              <div class="logo-name">Praybara</div>
-              <div class="logo-sub">Tu compañero espiritual</div>
+          <div class="screen-content" data-name="Screen/Content">
+            <div class="logo-area" data-name="Logo/Area">
+              <div class="logo-circle" data-name="Logo/Icon">&#xF36C;</div>
+              <p class="logo-name">Praybara</p>
+              <p class="logo-sub">Tu compañero espiritual</p>
             </div>
-            <div class="glass" style="padding:24px; display:flex; flex-direction:column; gap:18px;">
-              <div>
-                <div style="font-family:'Cormorant Garamond',serif; font-size:20px; font-weight:600; color:#F5F0E8; margin-bottom:3px;">Bienvenido de vuelta</div>
-                <div style="font-size:12px; color:#A89880;">Entra a tu espacio devocional</div>
+            <div class="spacer-md"></div>
+            <div class="glass-card" data-name="Card/LoginForm">
+              <div class="card-header">
+                <p class="card-title">Bienvenido de vuelta</p>
+                <p class="card-subtitle">Entra a tu espacio devocional</p>
               </div>
-              <div style="display:flex; flex-direction:column; gap:14px;">
-                <div class="field">
-                  <div class="field-label">Correo electrónico</div>
-                  <div class="field-input"><span class="field-text field-value">demo@praybara.app</span></div>
+              <div class="fields-group">
+                <div class="field" data-name="Input/Email/Filled">
+                  <p class="field-label">Correo electrónico</p>
+                  <div class="field-input">
+                    <span class="field-text filled">demo@praybara.app</span>
+                  </div>
                 </div>
-                <div class="field">
-                  <div class="field-label field-label-error">Contraseña</div>
-                  <div class="field-input field-input-error"><span class="field-text field-value-dots">••••</span><span style="display:flex;gap:5px;align-items:center;"><span class="ri" style="color:#E57373;font-size:14px;">&#xECA0;</span><span class="ri" style="font-size:14px;color:rgba(229,115,115,0.7);">&#xECB5;</span></span></div>
-                  <div class="field-error-msg"><span class="ri" style="font-size:11px;color:#E57373;">&#xECA0;</span> La contraseña es incorrecta</div>
+                <div class="field" data-name="Input/Password/Error">
+                  <p class="field-label error">Contraseña</p>
+                  <div class="field-input error">
+                    <span class="field-text dots">••••</span>
+                    <span class="field-icon error">&#xECA0;</span>
+                    <span class="field-icon" style="color:rgba(229,115,115,0.7);">&#xECB5;</span>
+                  </div>
+                  <div class="field-error-msg">
+                    <span class="field-icon error">&#xECA0;</span>
+                    La contraseña es incorrecta
+                  </div>
                 </div>
               </div>
-              <div class="btn-gold">Iniciar sesión</div>
-              <div class="divider"><div class="divider-line"></div><span class="divider-text">o continúa con</span><div class="divider-line"></div></div>
-              <div class="btn-apple"><span class="ri" style="font-size:16px;">&#xEA3F;</span> Continuar con Apple</div>
+              <button class="btn-gold" data-name="Button/Primary">Iniciar sesión</button>
+              <div class="auth-divider"><div class="divider-line"></div><span class="divider-text">o continúa con</span><div class="divider-line"></div></div>
+              <button class="btn-apple" data-name="Button/Apple"><span class="apple-icon">&#xEA3F;</span>Continuar con Apple</button>
             </div>
-            <!-- FORGOT PASSWORD LINK — appears after 2+ attempts -->
-            <div style="display:flex; justify-content:center;">
-              <div class="forgot-link"><span class="ri" style="font-size:13px;">&#xEE70;</span> ¿Olvidaste tu contraseña?</div>
+            <!-- Forgot Password — visible at failedAttempts >= 2 -->
+            <div class="spacer-sm"></div>
+            <div class="forgot-link" data-name="Link/ForgotPassword">
+              <span class="key-icon">&#xEE70;</span>
+              ¿Olvidaste tu contraseña?
             </div>
+            <div class="flex-grow"></div>
+            <div class="register-link"><span>¿No tienes cuenta?</span><a>Regístrate</a></div>
           </div>
-          <div class="register-link"><span>¿No tienes cuenta?</span><a>Regístrate</a></div>
         </div>
       </div>
-      <div class="screen-note">Forgot link slides in with spring animation at attempt ≥ 2</div>
+      <p class="screen-note">Forgot link slides in with spring animation at attempt ≥ 2</p>
     </div>
 
   </div>
-</div>
+</section>
 
-<!-- REGISTER SCREENS -->
-<div class="screens-section">
-  <h2 class="screens-section-title">RegisterView</h2>
-  <div class="screens-section-file">Features/Auth/RegisterView.swift → AuthContainerView screen: .register</div>
+<!-- ════════════════════════════════════════
+     REGISTER VIEW
+════════════════════════════════════════ -->
+<section class="section" data-name="Section/RegisterView">
+  <div class="section-header">
+    <h2 class="section-title">RegisterView</h2>
+    <p class="section-file">Features/Auth/RegisterView.swift → AuthContainerView screen: .register</p>
+  </div>
 
   <div class="screens-row">
 
-    <!-- REGISTER: DEFAULT -->
-    <div class="screen-wrap">
-      <div class="screen-label">Default State</div>
-      <div class="screen-sublabel">All fields empty · no errors</div>
-      <div class="iphone">
-        <div class="stars"></div>
-        <div style="position:relative; height:100%; display:flex; flex-direction:column; padding: 0 24px 40px;">
-          <div class="status-bar">
-            <span class="status-time">9:41</span>
-            <div class="status-icons"><span>●●●</span><span>WiFi</span><span>🔋</span></div>
-          </div>
-          <div style="flex:1; display:flex; flex-direction:column; justify-content:center; gap:28px;">
-            <div style="display:flex; flex-direction:column; gap:12px;">
-              <div class="back-btn">‹ Volver</div>
+    <!-- REGISTER: Default -->
+    <div class="screen-wrap" data-name="Screen/Register/Default">
+      <p class="screen-label">Default State</p>
+      <p class="screen-sublabel">All fields empty · no errors</p>
+      <div class="iphone" data-name="Artboard/iPhone16Pro">
+        <div class="iphone-inner">
+          <div class="stars"></div>
+          <div class="status-bar"><span class="status-time">9:41</span><div class="status-icons"><span>●●●</span><span>WiFi</span><span>🔋</span></div></div>
+          <div class="screen-content" data-name="Screen/Content">
+            <div class="screen-header" data-name="Screen/Header">
+              <button class="back-btn" data-name="Button/Back"><span class="back-icon">&#xEA64;</span> Volver</button>
               <div>
-                <div style="font-family:'Cormorant Garamond',serif; font-size:26px; font-weight:700; color:#F5F0E8; margin-bottom:3px;">Crea tu cuenta</div>
-                <div style="font-size:13px; color:#A89880;">Empieza tu camino espiritual hoy</div>
+                <p class="screen-heading">Crea tu cuenta</p>
+                <p class="screen-subheading">Empieza tu camino espiritual hoy</p>
               </div>
             </div>
-            <div class="glass" style="padding:24px; display:flex; flex-direction:column; gap:16px;">
-              <div class="field">
-                <div class="field-label">Nombre completo</div>
-                <div class="field-input"><span class="field-text field-placeholder">Tu nombre</span></div>
+            <div class="glass-card" data-name="Card/RegisterForm">
+              <div class="fields-group">
+                <div class="field" data-name="Input/Name/Default">
+                  <p class="field-label">Nombre completo</p>
+                  <div class="field-input"><span class="field-text">Tu nombre</span></div>
+                </div>
+                <div class="field" data-name="Input/Email/Default">
+                  <p class="field-label">Correo electrónico</p>
+                  <div class="field-input"><span class="field-text">tu@correo.com</span></div>
+                </div>
+                <div class="field" data-name="Input/Password/Default">
+                  <p class="field-label">Contraseña</p>
+                  <div class="field-input"><span class="field-text">Mínimo 8 caracteres</span><span class="field-icon">&#xECB5;</span></div>
+                </div>
+                <div class="field" data-name="Input/ConfirmPassword/Default">
+                  <p class="field-label">Confirmar contraseña</p>
+                  <div class="field-input"><span class="field-text">Repite tu contraseña</span><span class="field-icon">&#xECB5;</span></div>
+                </div>
               </div>
-              <div class="field">
-                <div class="field-label">Correo electrónico</div>
-                <div class="field-input"><span class="field-text field-placeholder">tu@correo.com</span></div>
-              </div>
-              <div class="field">
-                <div class="field-label">Contraseña</div>
-                <div class="field-input"><span class="field-text field-placeholder">Mínimo 8 caracteres</span><span class="ri" style="font-size:15px; color:rgba(255,255,255,0.3);">&#xECB5;</span></div>
-              </div>
-              <div class="field">
-                <div class="field-label">Confirmar contraseña</div>
-                <div class="field-input"><span class="field-text field-placeholder">Repite tu contraseña</span><span class="ri" style="font-size:15px; color:rgba(255,255,255,0.3);">&#xECB5;</span></div>
-              </div>
-              <div style="font-size:10px; color:rgba(255,255,255,0.25); text-align:center; line-height:1.5;">Al registrarte aceptas nuestros Términos de Uso y Política de Privacidad.</div>
-              <div class="btn-gold">Crear cuenta</div>
-              <div class="divider"><div class="divider-line"></div><span class="divider-text">o</span><div class="divider-line"></div></div>
-              <div class="btn-apple"><span class="ri" style="font-size:16px;">&#xEA3F;</span> Continuar con Apple</div>
+              <p class="legal-text">Al registrarte aceptas nuestros Términos de Uso y Política de Privacidad.</p>
+              <button class="btn-gold" data-name="Button/Primary">Crear cuenta</button>
+              <div class="auth-divider"><div class="divider-line"></div><span class="divider-text">o</span><div class="divider-line"></div></div>
+              <button class="btn-apple" data-name="Button/Apple"><span class="apple-icon">&#xEA3F;</span>Continuar con Apple</button>
             </div>
+            <div class="flex-grow"></div>
+            <div class="register-link"><span>¿Ya tienes cuenta?</span><a>Inicia sesión</a></div>
           </div>
-          <div class="register-link"><span>¿Ya tienes cuenta?</span><a>Inicia sesión</a></div>
         </div>
       </div>
     </div>
 
-    <!-- REGISTER: VALIDATION ERRORS -->
-    <div class="screen-wrap">
-      <div class="screen-label">Validation Errors</div>
-      <div class="screen-sublabel">passwordError: .weakPassword · confirmError: .passwordMismatch</div>
-      <div class="iphone">
-        <div class="stars"></div>
-        <div style="position:relative; height:100%; display:flex; flex-direction:column; padding: 0 24px 40px; overflow:hidden;">
-          <div class="status-bar">
-            <span class="status-time">9:41</span>
-            <div class="status-icons"><span>●●●</span><span>WiFi</span><span>🔋</span></div>
-          </div>
-          <div style="flex:1; display:flex; flex-direction:column; justify-content:center; gap:28px;">
-            <div style="display:flex; flex-direction:column; gap:12px;">
-              <div class="back-btn">‹ Volver</div>
+    <!-- REGISTER: Validation Errors -->
+    <div class="screen-wrap" data-name="Screen/Register/ValidationErrors">
+      <p class="screen-label">Validation Errors</p>
+      <p class="screen-sublabel">passwordError: .weakPassword · confirmError: .passwordMismatch</p>
+      <div class="iphone" data-name="Artboard/iPhone16Pro">
+        <div class="iphone-inner">
+          <div class="stars"></div>
+          <div class="status-bar"><span class="status-time">9:41</span><div class="status-icons"><span>●●●</span><span>WiFi</span><span>🔋</span></div></div>
+          <div class="screen-content" data-name="Screen/Content">
+            <div class="screen-header">
+              <button class="back-btn" data-name="Button/Back"><span class="back-icon">&#xEA64;</span> Volver</button>
               <div>
-                <div style="font-family:'Cormorant Garamond',serif; font-size:26px; font-weight:700; color:#F5F0E8; margin-bottom:3px;">Crea tu cuenta</div>
-                <div style="font-size:13px; color:#A89880;">Empieza tu camino espiritual hoy</div>
+                <p class="screen-heading">Crea tu cuenta</p>
+                <p class="screen-subheading">Empieza tu camino espiritual hoy</p>
               </div>
             </div>
-            <div class="glass" style="padding:24px; display:flex; flex-direction:column; gap:14px;">
-              <div class="field">
-                <div class="field-label">Nombre completo</div>
-                <div class="field-input"><span class="field-text field-value">Rafael</span></div>
+            <div class="glass-card" data-name="Card/RegisterForm">
+              <div class="fields-group">
+                <div class="field" data-name="Input/Name/Filled">
+                  <p class="field-label">Nombre completo</p>
+                  <div class="field-input"><span class="field-text filled">Rafael</span></div>
+                </div>
+                <div class="field" data-name="Input/Email/Filled">
+                  <p class="field-label">Correo electrónico</p>
+                  <div class="field-input"><span class="field-text filled">rafael@correo.com</span></div>
+                </div>
+                <div class="field" data-name="Input/Password/Error">
+                  <p class="field-label error">Contraseña</p>
+                  <div class="field-input error">
+                    <span class="field-text dots">••••••</span>
+                    <span class="field-icon error">&#xECA0;</span>
+                    <span class="field-icon" style="color:rgba(229,115,115,0.7);">&#xECB5;</span>
+                  </div>
+                  <div class="field-error-msg"><span class="field-icon error">&#xECA0;</span>La contraseña debe tener al menos 8 caracteres</div>
+                </div>
+                <div class="field" data-name="Input/ConfirmPassword/Error">
+                  <p class="field-label error">Confirmar contraseña</p>
+                  <div class="field-input error">
+                    <span class="field-text dots">•••••</span>
+                    <span class="field-icon error">&#xECA0;</span>
+                    <span class="field-icon" style="color:rgba(229,115,115,0.7);">&#xECB5;</span>
+                  </div>
+                  <div class="field-error-msg"><span class="field-icon error">&#xECA0;</span>Las contraseñas no coinciden</div>
+                </div>
               </div>
-              <div class="field">
-                <div class="field-label">Correo electrónico</div>
-                <div class="field-input"><span class="field-text field-value">rafael@correo.com</span></div>
-              </div>
-              <div class="field">
-                <div class="field-label field-label-error">Contraseña</div>
-                <div class="field-input field-input-error"><span class="field-text field-value-dots">••••••</span><span style="display:flex;gap:5px;align-items:center;"><span class="ri" style="color:#E57373;font-size:14px;">&#xECA0;</span><span class="ri" style="font-size:14px;color:rgba(229,115,115,0.7);">&#xECB5;</span></span></div>
-                <div class="field-error-msg"><span class="ri" style="font-size:11px;color:#E57373;">&#xECA0;</span> La contraseña debe tener al menos 8 caracteres</div>
-              </div>
-              <div class="field">
-                <div class="field-label field-label-error">Confirmar contraseña</div>
-                <div class="field-input field-input-error"><span class="field-text field-value-dots">•••••</span><span style="display:flex;gap:5px;align-items:center;"><span class="ri" style="color:#E57373;font-size:14px;">&#xECA0;</span><span class="ri" style="font-size:14px;color:rgba(229,115,115,0.7);">&#xECB5;</span></span></div>
-                <div class="field-error-msg"><span class="ri" style="font-size:11px;color:#E57373;">&#xECA0;</span> Las contraseñas no coinciden</div>
-              </div>
-              <div class="btn-gold">Crear cuenta</div>
+              <button class="btn-gold" data-name="Button/Primary">Crear cuenta</button>
             </div>
+            <div class="flex-grow"></div>
           </div>
         </div>
       </div>
-      <div class="screen-note">Values preserved · two simultaneous errors</div>
+      <p class="screen-note">Values preserved · two simultaneous errors</p>
     </div>
 
   </div>
-</div>
+</section>
 
-<!-- FORGOT PASSWORD SCREENS -->
-<div class="screens-section">
-  <h2 class="screens-section-title">ForgotPasswordView</h2>
-  <div class="screens-section-file">Features/Auth/ForgotPasswordView.swift → AuthContainerView screen: .forgotPassword</div>
+<!-- ════════════════════════════════════════
+     FORGOT PASSWORD VIEW
+════════════════════════════════════════ -->
+<section class="section" data-name="Section/ForgotPasswordView">
+  <div class="section-header">
+    <h2 class="section-title">ForgotPasswordView</h2>
+    <p class="section-file">Features/Auth/ForgotPasswordView.swift → AuthContainerView screen: .forgotPassword</p>
+  </div>
 
   <div class="screens-row">
 
-    <!-- FORGOT: DEFAULT -->
-    <div class="screen-wrap">
-      <div class="screen-label">Form State — Default</div>
-      <div class="screen-sublabel">email: "" · no error</div>
-      <div class="iphone">
-        <div class="stars"></div>
-        <div style="position:relative; height:100%; display:flex; flex-direction:column; padding: 0 24px 40px;">
-          <div class="status-bar">
-            <span class="status-time">9:41</span>
-            <div class="status-icons"><span>●●●</span><span>WiFi</span><span>🔋</span></div>
-          </div>
-          <div style="flex:1; display:flex; flex-direction:column; justify-content:center; gap:32px;">
-            <div style="display:flex; flex-direction:column; gap:12px;">
-              <div class="back-btn">‹ Volver</div>
+    <!-- FORGOT: Default -->
+    <div class="screen-wrap" data-name="Screen/ForgotPw/Default">
+      <p class="screen-label">Form State — Default</p>
+      <p class="screen-sublabel">email: "" · no error</p>
+      <div class="iphone" data-name="Artboard/iPhone16Pro">
+        <div class="iphone-inner">
+          <div class="stars"></div>
+          <div class="status-bar"><span class="status-time">9:41</span><div class="status-icons"><span>●●●</span><span>WiFi</span><span>🔋</span></div></div>
+          <div class="screen-content" data-name="Screen/Content">
+            <div class="screen-header">
+              <button class="back-btn" data-name="Button/Back"><span class="back-icon">&#xEA64;</span> Volver</button>
               <div>
-                <div style="font-family:'Cormorant Garamond',serif; font-size:24px; font-weight:700; color:#F5F0E8; margin-bottom:3px;">Recuperar contraseña</div>
-                <div style="font-size:12px; color:#A89880;">Te enviaremos un enlace a tu correo</div>
+                <p class="screen-heading">Recuperar contraseña</p>
+                <p class="screen-subheading">Te enviaremos un enlace a tu correo</p>
               </div>
             </div>
-            <div class="glass" style="padding:24px; display:flex; flex-direction:column; gap:20px;">
-              <!-- Info hint -->
-              <div style="background:rgba(232,184,109,0.07); border:1px solid rgba(232,184,109,0.18); border-radius:10px; padding:12px; display:flex; gap:8px;">
-                <span class="ri" style="font-size:13px; color:rgba(232,184,109,0.7);">&#xEE59;</span>
-                <span style="font-size:12px; color:rgba(255,255,255,0.45); line-height:1.5;">Ingresa el correo con el que te registraste y te enviaremos las instrucciones.</span>
+            <div class="glass-card" data-name="Card/ForgotPwForm">
+              <div class="info-hint" data-name="Hint/Info">
+                <span class="info-icon">&#xEE59;</span>
+                <span>Ingresa el correo con el que te registraste y te enviaremos las instrucciones.</span>
               </div>
-              <div class="field">
-                <div class="field-label">Correo electrónico</div>
-                <div class="field-input"><span class="field-text field-placeholder">tu@correo.com</span></div>
+              <div class="field" data-name="Input/Email/Default">
+                <p class="field-label">Correo electrónico</p>
+                <div class="field-input"><span class="field-text">tu@correo.com</span></div>
               </div>
-              <div class="btn-gold">Enviar enlace</div>
+              <button class="btn-gold" data-name="Button/Primary">Enviar enlace</button>
             </div>
+            <div class="flex-grow"></div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- FORGOT: EMAIL ERROR -->
-    <div class="screen-wrap">
-      <div class="screen-label">Form State — Email Error</div>
-      <div class="screen-sublabel">emailError: .invalidEmail</div>
-      <div class="iphone">
-        <div class="stars"></div>
-        <div style="position:relative; height:100%; display:flex; flex-direction:column; padding: 0 24px 40px;">
-          <div class="status-bar">
-            <span class="status-time">9:41</span>
-            <div class="status-icons"><span>●●●</span><span>WiFi</span><span>🔋</span></div>
-          </div>
-          <div style="flex:1; display:flex; flex-direction:column; justify-content:center; gap:32px;">
-            <div style="display:flex; flex-direction:column; gap:12px;">
-              <div class="back-btn">‹ Volver</div>
+    <!-- FORGOT: Email Error -->
+    <div class="screen-wrap" data-name="Screen/ForgotPw/EmailError">
+      <p class="screen-label">Form State — Email Error</p>
+      <p class="screen-sublabel">emailError: .invalidEmail</p>
+      <div class="iphone" data-name="Artboard/iPhone16Pro">
+        <div class="iphone-inner">
+          <div class="stars"></div>
+          <div class="status-bar"><span class="status-time">9:41</span><div class="status-icons"><span>●●●</span><span>WiFi</span><span>🔋</span></div></div>
+          <div class="screen-content" data-name="Screen/Content">
+            <div class="screen-header">
+              <button class="back-btn"><span class="back-icon">&#xEA64;</span> Volver</button>
               <div>
-                <div style="font-family:'Cormorant Garamond',serif; font-size:24px; font-weight:700; color:#F5F0E8; margin-bottom:3px;">Recuperar contraseña</div>
-                <div style="font-size:12px; color:#A89880;">Te enviaremos un enlace a tu correo</div>
+                <p class="screen-heading">Recuperar contraseña</p>
+                <p class="screen-subheading">Te enviaremos un enlace a tu correo</p>
               </div>
             </div>
-            <div class="glass" style="padding:24px; display:flex; flex-direction:column; gap:20px;">
-              <div style="background:rgba(232,184,109,0.07); border:1px solid rgba(232,184,109,0.18); border-radius:10px; padding:12px; display:flex; gap:8px;">
-                <span class="ri" style="font-size:13px; color:rgba(232,184,109,0.7);">&#xEE59;</span>
-                <span style="font-size:12px; color:rgba(255,255,255,0.45); line-height:1.5;">Ingresa el correo con el que te registraste y te enviaremos las instrucciones.</span>
+            <div class="glass-card" data-name="Card/ForgotPwForm">
+              <div class="info-hint">
+                <span class="info-icon">&#xEE59;</span>
+                <span>Ingresa el correo con el que te registraste y te enviaremos las instrucciones.</span>
               </div>
-              <div class="field">
-                <div class="field-label field-label-error">Correo electrónico</div>
-                <div class="field-input field-input-error"><span class="field-text field-value">nocorreo</span><span class="ri" style="color:#E57373;font-size:14px;">&#xECA0;</span></div>
-                <div class="field-error-msg"><span class="ri" style="font-size:11px;color:#E57373;">&#xECA0;</span> El correo no tiene un formato válido</div>
+              <div class="field" data-name="Input/Email/Error">
+                <p class="field-label error">Correo electrónico</p>
+                <div class="field-input error">
+                  <span class="field-text filled">nocorreo</span>
+                  <span class="field-icon error">&#xECA0;</span>
+                </div>
+                <div class="field-error-msg"><span class="field-icon error">&#xECA0;</span>El correo no tiene un formato válido</div>
               </div>
-              <div class="btn-gold">Enviar enlace</div>
+              <button class="btn-gold" data-name="Button/Primary">Enviar enlace</button>
             </div>
+            <div class="flex-grow"></div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- FORGOT: SUCCESS -->
-    <div class="screen-wrap">
-      <div class="screen-label">Success State</div>
-      <div class="screen-sublabel">didSend: true · email preserved</div>
-      <div class="iphone">
-        <div class="stars"></div>
-        <div style="position:relative; height:100%; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:32px; padding:40px 32px;">
-          <div class="success-glow">
-            <span class="ri success-icon" style="font-size:40px; color:#E8B86D; z-index:1;">&#xEEFC;</span>
-          </div>
-          <div style="text-align:center; display:flex; flex-direction:column; gap:10px;">
-            <div style="font-family:'Cormorant Garamond',serif; font-size:26px; font-weight:700; color:#F5F0E8;">Enlace enviado</div>
-            <div style="font-size:13px; color:#A89880; line-height:1.6;">Revisa tu bandeja de entrada en<br><span style="color:#F5F0E8;">demo@praybara.app</span></div>
-          </div>
-          <div style="display:flex; flex-direction:column; align-items:center; gap:6px;">
-            <div style="font-family:'Cormorant Garamond',serif; font-size:16px; font-style:italic; font-weight:300; color:rgba(232,184,109,0.75);">"Pedid, y se os dará"</div>
-            <div style="font-family:'Cormorant Garamond',serif; font-size:11px; font-weight:600; color:rgba(255,255,255,0.28);">Mateo 7:7</div>
-          </div>
-          <div style="width:100%; display:flex; flex-direction:column; gap:12px; align-items:center;">
-            <div class="btn-gold" style="width:100%;">Volver al inicio de sesión</div>
-            <div style="font-size:11px; color:rgba(255,255,255,0.25); text-align:center;">¿No llegó el correo? Revisa tu carpeta de spam.</div>
+    <!-- FORGOT: Success -->
+    <div class="screen-wrap" data-name="Screen/ForgotPw/Success">
+      <p class="screen-label">Success State</p>
+      <p class="screen-sublabel">didSend: true · email preserved</p>
+      <div class="iphone" data-name="Artboard/iPhone16Pro">
+        <div class="iphone-inner">
+          <div class="stars"></div>
+          <div class="status-bar"><span class="status-time">9:41</span><div class="status-icons"><span>●●●</span><span>WiFi</span><span>🔋</span></div></div>
+          <div class="screen-content" data-name="Screen/Content">
+            <div class="success-container" data-name="Success/Container">
+              <div class="success-glow" data-name="Success/Icon">
+                <span class="success-icon">&#xEEFC;</span>
+              </div>
+              <div class="success-text">
+                <p class="success-title">Enlace enviado</p>
+                <p class="success-body">Revisa tu bandeja de entrada en<br><strong>demo@praybara.app</strong></p>
+              </div>
+              <div class="scripture" data-name="Scripture/Quote">
+                <p class="scripture-verse">"Pedid, y se os dará"</p>
+                <p class="scripture-ref">Mateo 7:7</p>
+              </div>
+              <div class="success-actions">
+                <button class="btn-gold" data-name="Button/Primary" style="width:100%;">Volver al inicio de sesión</button>
+                <p class="success-note">¿No llegó el correo? Revisa tu carpeta de spam.</p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-      <div class="screen-note">Animated entrance · scripture quote · email shown</div>
+      <p class="screen-note">Animated entrance · scripture quote · email shown</p>
     </div>
 
   </div>
-</div>
+</section>
+
+<!-- ════════════════════════════════════════
+     COMPONENT NOTE
+════════════════════════════════════════ -->
+<section class="section" data-name="Section/ComponentsNote">
+  <div style="display:flex;flex-direction:column;gap:12px;padding:24px;background:rgba(232,184,109,0.06);border:1px solid rgba(232,184,109,0.15);border-radius:16px;max-width:900px;">
+    <p style="font-size:13px;font-weight:600;color:#E8B86D;">→ Figma Components to Create</p>
+    <p style="font-size:12px;color:rgba(255,255,255,0.5);line-height:1.8;">
+      Select each of these repeated elements and use <strong style="color:#F5F0E8;">Right-click → Create Component (⌥⌘K)</strong>:<br>
+      <strong style="color:#F5F0E8;">Input/Email/Default</strong> · <strong style="color:#F5F0E8;">Button/Primary (btn-gold)</strong> · <strong style="color:#F5F0E8;">Button/Apple</strong> · <strong style="color:#F5F0E8;">Button/Back</strong> · <strong style="color:#F5F0E8;">StatusBar</strong> · <strong style="color:#F5F0E8;">Divider/Auth</strong> · <strong style="color:#F5F0E8;">Logo/Area</strong>
+    </p>
+  </div>
+</section>
 
 </body>
 </html>

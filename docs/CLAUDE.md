@@ -1208,7 +1208,7 @@ The Figma MCP capture tool always **adds new frames** — it cannot replace exis
 |-------|---------|-----------------|---------------|
 | Praybara — Design Tokens | v1 | `37:2` | — |
 | Praybara — Components | v2 | `42:2` | `7:2` |
-| Praybara — Auth Screens | v3 | `44:2` | `8:2` |
+| Praybara — Auth Screens | v4 | `57:2` | `11:2` |
 
 ### 14.3 RemixIcon Font in HTML Files
 
