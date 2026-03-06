@@ -7,6 +7,12 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <script src="https://mcp.figma.com/mcp/html-to-design/capture.js" async></script>
 <style>
+  @font-face {
+    font-family: 'remixicon';
+    src: url('../Praybara/Resources/Fonts/remixicon.ttf') format('truetype');
+    font-weight: normal; font-style: normal;
+  }
+  .ri { font-family: 'remixicon'; font-style: normal; line-height: 1; display: inline-block; }
   :root {
     --gold: #E8B86D; --gold-light: #F0C878; --gold-dark: #C8923A;
     --text-primary: #F5F0E8; --text-secondary: #A89880;
@@ -66,8 +72,8 @@
   .input-text { flex: 1; font-family: 'DM Sans', sans-serif; font-size: 15px; color: var(--text-primary); }
   .input-placeholder { color: rgba(255,255,255,0.25); }
   .input-value { color: var(--text-primary); }
-  .input-icon { font-size: 14px; opacity: 0.35; }
-  .input-icon-error { color: var(--error); font-size: 15px; }
+  .input-icon { font-family: 'remixicon'; font-style: normal; font-size: 16px; opacity: 0.35; line-height: 1; }
+  .input-icon-error { font-family: 'remixicon'; font-style: normal; color: var(--error); font-size: 16px; line-height: 1; }
   .input-error-msg { display: flex; align-items: center; gap: 4px; color: var(--error); font-size: 12px; font-weight: 500; }
 
   /* APPLE BUTTON */
@@ -105,11 +111,11 @@
   .habit-row { display: flex; align-items: center; gap: 12px; padding: 14px 16px; border-radius: 16px; max-width: 300px; }
   .habit-check { width: 28px; height: 28px; border-radius: 999px; border: 2px solid; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 14px; }
   .habit-check-empty { border-color: rgba(255,255,255,0.2); }
-  .habit-check-done { background: linear-gradient(135deg,#E8B86D,#C8923A); border-color: transparent; color: #1A1611; }
+  .habit-check-done { background: linear-gradient(135deg,#E8B86D,#C8923A); border-color: transparent; color: #1A1611; font-family: 'remixicon'; font-style: normal; font-size: 16px; }
   .habit-info { flex: 1; }
   .habit-name { font-size: 14px; font-weight: 500; color: var(--text-primary); }
   .habit-streak { font-size: 12px; color: var(--text-secondary); margin-top: 2px; }
-  .habit-emoji { font-size: 18px; }
+  .habit-emoji { font-family: 'remixicon'; font-style: normal; font-size: 20px; line-height: 1; }
 
   /* CATEGORY PILL */
   .pill { display: inline-flex; align-items: center; padding: 6px 14px; border-radius: 999px; font-size: 13px; font-weight: 500; font-family: 'DM Sans', sans-serif; }
@@ -124,7 +130,7 @@
   /* TAB BAR */
   .tab-bar { display: flex; align-items: center; justify-content: space-around; padding: 12px 16px 20px; border-radius: 28px; background: rgba(11,17,32,0.85); border-top: 1px solid rgba(255,255,255,0.08); backdrop-filter: blur(20px); width: 360px; }
   .tab-item { display: flex; flex-direction: column; align-items: center; gap: 4px; cursor: pointer; }
-  .tab-icon { font-size: 22px; }
+  .tab-icon { font-family: 'remixicon'; font-style: normal; font-size: 22px; line-height: 1; }
   .tab-label { font-size: 10px; font-weight: 500; font-family: 'DM Sans', sans-serif; }
   .tab-active .tab-icon { font-size: 26px; }
   .tab-active .tab-label { color: var(--gold); }
@@ -216,9 +222,9 @@
         <div class="input-label input-label-error">Correo electrónico</div>
         <div class="input-row input-error">
           <span class="input-text input-value">rafael@mal</span>
-          <span class="input-icon-error">⚠</span>
+          <span class="input-icon-error">&#xECA0;</span>
         </div>
-        <div class="input-error-msg">⚠ El correo no tiene un formato válido</div>
+        <div class="input-error-msg"><span class="input-icon-error" style="font-size:13px;">&#xECA0;</span> El correo no tiene un formato válido</div>
       </div>
       <div class="component-sublabel">errorMessage: .invalidEmail · value preserved</div>
     </div>
@@ -229,7 +235,7 @@
         <div class="input-label">Contraseña</div>
         <div class="input-row input-default">
           <span class="input-text input-value">••••••••</span>
-          <span class="input-icon">👁</span>
+          <span class="input-icon">&#xECB5;</span>
         </div>
       </div>
       <div class="component-sublabel">isSecure: true · isRevealed: false</div>
@@ -241,7 +247,7 @@
         <div class="input-label">Contraseña</div>
         <div class="input-row input-focused">
           <span class="input-text input-value">praybara123</span>
-          <span class="input-icon" style="opacity:0.55;">🙈</span>
+          <span class="input-icon" style="opacity:0.55;">&#xECB7;</span>
         </div>
       </div>
       <div class="component-sublabel">isSecure: true · isRevealed: true</div>
@@ -254,11 +260,11 @@
         <div class="input-row input-error">
           <span class="input-text input-value">••••</span>
           <span style="display:flex;gap:6px;">
-            <span class="input-icon-error">⚠</span>
-            <span class="input-icon" style="color:var(--error);opacity:0.8;">👁</span>
+            <span class="input-icon-error">&#xECA0;</span>
+            <span class="input-icon" style="color:var(--error);opacity:0.8;">&#xECB5;</span>
           </span>
         </div>
-        <div class="input-error-msg">⚠ La contraseña es incorrecta</div>
+        <div class="input-error-msg"><span class="input-icon-error" style="font-size:13px;">&#xECA0;</span> La contraseña es incorrecta</div>
       </div>
       <div class="component-sublabel">errorMessage: .wrongPassword · isSecure: true</div>
     </div>
@@ -277,7 +283,7 @@
     <div class="component-cell">
       <div class="component-label">AppleSignInButton</div>
       <button class="btn-apple">
-        <span style="font-size:17px;">🍎</span>
+        <span class="ri" style="font-size:17px;">&#xEA3F;</span>
         Continuar con Apple
       </button>
       <div class="component-sublabel">Custom styled · no AuthenticationServices needed</div>
@@ -295,7 +301,7 @@
 
     <div class="component-cell">
       <div class="component-label">AuthBackButton</div>
-      <button class="btn-back">‹ Volver</button>
+      <button class="btn-back"><span class="ri" style="font-size:18px;">&#xEA64;</span> Volver</button>
       <div class="component-sublabel">color: rgba(255,255,255,0.6)</div>
     </div>
 
@@ -335,9 +341,9 @@
     <div class="component-cell">
       <div class="component-label">StreakBadge</div>
       <div style="display:flex; gap:12px; flex-direction:column;">
-        <div class="streak-badge">🔥 7</div>
-        <div class="streak-badge">🔥 30</div>
-        <div class="streak-badge">🔥 365</div>
+        <div class="streak-badge"><span class="ri" style="font-size:13px;">&#xF0E6;</span> 7</div>
+        <div class="streak-badge"><span class="ri" style="font-size:13px;">&#xF0E6;</span> 30</div>
+        <div class="streak-badge"><span class="ri" style="font-size:13px;">&#xF0E6;</span> 365</div>
       </div>
       <div class="component-sublabel">count: Int</div>
     </div>
@@ -369,16 +375,16 @@
       <div class="component-label">HabitCheckButton</div>
       <div style="display:flex; flex-direction:column; gap:10px;">
         <div class="glass habit-row">
-          <span class="habit-emoji">🙏</span>
+          <span class="habit-emoji">&#xEDF2;</span>
           <div class="habit-check habit-check-empty"></div>
           <div class="habit-info">
             <div class="habit-name">Oración matutina</div>
-            <div class="habit-streak">🔥 7 días</div>
+            <div class="habit-streak"><span class="ri" style="font-size:12px;">&#xF0E6;</span> 7 días</div>
           </div>
         </div>
         <div class="glass habit-row">
-          <span class="habit-emoji">📖</span>
-          <div class="habit-check habit-check-done">✓</div>
+          <span class="habit-emoji">&#xEADA;</span>
+          <div class="habit-check habit-check-done">&#xEB80;</div>
           <div class="habit-info">
             <div class="habit-name">Lectura bíblica</div>
             <div class="habit-streak" style="color:var(--gold);">✓ Completado</div>
@@ -427,23 +433,23 @@
     <div class="component-label">Tab = Home active</div>
     <div class="tab-bar">
       <div class="tab-item tab-active">
-        <div class="tab-icon">🏠</div>
+        <div class="tab-icon" style="color:var(--gold);">&#xEE26;</div>
         <div class="tab-label">Inicio</div>
       </div>
       <div class="tab-item tab-inactive">
-        <div class="tab-icon">📖</div>
+        <div class="tab-icon">&#xEADA;</div>
         <div class="tab-label">Biblia</div>
       </div>
       <div class="tab-item tab-inactive">
-        <div class="tab-icon">🙏</div>
+        <div class="tab-icon">&#xEDF2;</div>
         <div class="tab-label">Oración</div>
       </div>
       <div class="tab-item tab-inactive">
-        <div class="tab-icon">✅</div>
+        <div class="tab-icon">&#xEB7E;</div>
         <div class="tab-label">Hábitos</div>
       </div>
       <div class="tab-item tab-inactive">
-        <div class="tab-icon">👥</div>
+        <div class="tab-icon">&#xF1ED;</div>
         <div class="tab-label">Iglesia</div>
       </div>
     </div>
