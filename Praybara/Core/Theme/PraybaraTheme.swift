@@ -98,21 +98,25 @@ enum PraybaraRadius {
 }
 
 // MARK: - Typography
+//
+// Two-font system:
+//   Cormorant Garamond (serif)  → titles, subtitles, scripture, featured info — anything that carries meaning
+//   SF Pro (system default)     → body copy, paragraphs, labels, UI chrome — anything functional/background
 
 enum PraybaraFonts {
-    /// Serif display — headings, titles, scripture references
+    /// Serif display — titles, subtitles, section headers, featured info
     static func display(_ size: CGFloat, weight: Font.Weight = .regular) -> Font {
         .system(size: size, weight: weight, design: .serif)
     }
-    /// Rounded body — most UI text
+    /// System body — paragraphs, descriptions, long-form text
     static func body(_ size: CGFloat, weight: Font.Weight = .regular) -> Font {
-        .system(size: size, weight: weight, design: .rounded)
+        .system(size: size, weight: weight, design: .default)
     }
-    /// Rounded label — small UI text, chips, badges
+    /// System label — UI chrome, chips, badges, nav items, captions
     static func label(_ size: CGFloat, weight: Font.Weight = .medium) -> Font {
-        .system(size: size, weight: weight, design: .rounded)
+        .system(size: size, weight: weight, design: .default)
     }
-    /// Italic serif — scripture verse text
+    /// Italic serif — scripture verse text (Cormorant Garamond via serif design)
     static func scripture(_ size: CGFloat) -> Font {
         .system(size: size, weight: .light, design: .serif).italic()
     }

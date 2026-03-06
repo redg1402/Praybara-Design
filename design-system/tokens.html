@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Praybara — Design Tokens v2</title>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<title>Praybara — Design Tokens v3</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&display=swap" rel="stylesheet">
 <script src="https://mcp.figma.com/mcp/html-to-design/capture.js" async></script>
 <style>
   :root {
@@ -29,7 +29,7 @@
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body {
     background: #060C18;
-    font-family: 'DM Sans', sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif;
     min-width: 1440px;
   }
 
@@ -202,7 +202,7 @@
 <!-- PAGE HEADER -->
 <div class="page-header">
   <div class="page-tag">Praybara Design System</div>
-  <h1 class="page-title">Design Tokens <span style="font-size:22px; opacity:0.4;">v2</span></h1>
+  <h1 class="page-title">Design Tokens <span style="font-size:22px; opacity:0.4;">v3</span></h1>
   <p class="page-subtitle">Single source of truth for all colors, typography, spacing, radii, gradients and effects — in both Dark and Light themes. All values map 1:1 to PraybaraTheme.swift.</p>
 </div>
 
@@ -399,7 +399,7 @@
   <!-- TYPOGRAPHY DARK -->
   <div class="section">
     <h2 class="section-title">Typography</h2>
-    <p class="section-desc">Display: Cormorant Garamond (serif). Body + Label: DM Sans (rounded). Scripture: Cormorant Garamond italic light.</p>
+    <p class="section-desc">Display & Titles: Cormorant Garamond (serif). Body & Labels: SF Pro (iOS system). Scripture: Cormorant Garamond italic light.</p>
     <div class="type-table">
       <div class="type-row">
         <div class="type-meta"><div class="type-meta-name">type/display/hero</div><div class="type-meta-spec">Cormorant · 40px · Bold</div><div class="swift-ref">PraybaraFonts.display(40, .bold)</div></div>
@@ -414,12 +414,12 @@
         <div style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:600;color:#F5F0E8;">Crea tu cuenta</div>
       </div>
       <div class="type-row">
-        <div class="type-meta"><div class="type-meta-name">type/body/regular</div><div class="type-meta-spec">DM Sans · 15px · Regular</div><div class="swift-ref">PraybaraFonts.body(15)</div></div>
-        <div style="font-family:'DM Sans',sans-serif;font-size:15px;color:#F5F0E8;">Tu compañero espiritual diario</div>
+        <div class="type-meta"><div class="type-meta-name">type/body/regular</div><div class="type-meta-spec">SF Pro · 15px · Regular</div><div class="swift-ref">PraybaraFonts.body(15)</div></div>
+        <div style="font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text',sans-serif;font-size:15px;color:#F5F0E8;">Tu compañero espiritual diario</div>
       </div>
       <div class="type-row">
-        <div class="type-meta"><div class="type-meta-name">type/label/sm</div><div class="type-meta-spec">DM Sans · 13px · Medium</div><div class="swift-ref">PraybaraFonts.label(13)</div></div>
-        <div style="font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;color:#A89880;">Correo electrónico</div>
+        <div class="type-meta"><div class="type-meta-name">type/label/sm</div><div class="type-meta-spec">SF Pro · 13px · Medium</div><div class="swift-ref">PraybaraFonts.label(13)</div></div>
+        <div style="font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text',sans-serif;font-size:13px;font-weight:500;color:#A89880;">Correo electrónico</div>
       </div>
       <div class="type-row">
         <div class="type-meta"><div class="type-meta-name">type/scripture/verse</div><div class="type-meta-spec">Cormorant · 18px · Light · Italic</div><div class="swift-ref">PraybaraFonts.scripture(18)</div></div>
@@ -730,12 +730,12 @@
         <div style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:600;color:#1A1611;">Crea tu cuenta</div>
       </div>
       <div class="type-row">
-        <div class="type-meta"><div class="type-meta-name">type/body/regular</div><div class="type-meta-spec">DM Sans · 15px · Regular</div><div class="swift-ref">PraybaraFonts.body(15)</div></div>
-        <div style="font-family:'DM Sans',sans-serif;font-size:15px;color:#1A1611;">Tu compañero espiritual diario</div>
+        <div class="type-meta"><div class="type-meta-name">type/body/regular</div><div class="type-meta-spec">SF Pro · 15px · Regular</div><div class="swift-ref">PraybaraFonts.body(15)</div></div>
+        <div style="font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text',sans-serif;font-size:15px;color:#1A1611;">Tu compañero espiritual diario</div>
       </div>
       <div class="type-row">
-        <div class="type-meta"><div class="type-meta-name">type/label/sm</div><div class="type-meta-spec">DM Sans · 13px · Medium</div><div class="swift-ref">PraybaraFonts.label(13)</div></div>
-        <div style="font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;color:#5C5248;">Correo electrónico</div>
+        <div class="type-meta"><div class="type-meta-name">type/label/sm</div><div class="type-meta-spec">SF Pro · 13px · Medium</div><div class="swift-ref">PraybaraFonts.label(13)</div></div>
+        <div style="font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text',sans-serif;font-size:13px;font-weight:500;color:#5C5248;">Correo electrónico</div>
       </div>
       <div class="type-row">
         <div class="type-meta"><div class="type-meta-name">type/scripture/verse</div><div class="type-meta-spec">Cormorant · 18px · Light · Italic</div><div class="swift-ref">PraybaraFonts.scripture(18)</div></div>
