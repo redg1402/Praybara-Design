@@ -1172,4 +1172,62 @@ https://www.figma.com/design/QHivzkbTxGGq1SbFt84vW3/App-design
 
 ---
 
+## 14. MANDATORY WORKFLOW — EVERY CHANGE
+
+### 14.1 Figma — Always Push to Both Files Simultaneously
+
+Every change must be pushed to the correct file immediately:
+
+| Change type | Target Figma file |
+|-------------|------------------|
+| Design tokens, color, typography, spacing | Design System `LcaSEcTxDsyU1EjqfrmAIV` |
+| Reusable components (buttons, inputs, cards) | Design System `LcaSEcTxDsyU1EjqfrmAIV` |
+| App screens (Login, Home, Prayer, etc.) | App design `QHivzkbTxGGq1SbFt84vW3` |
+| Components that appear IN screens | **BOTH files simultaneously** |
+
+Never push to one file and skip the other. Both captures must be triggered in the same session.
+
+### 14.2 Figma Capture — Managing Duplicates
+
+The Figma MCP capture tool always **adds new frames** — it cannot replace existing ones. To prevent duplicate accumulation:
+
+1. **Before each new capture**, Claude will check the current canonical frame IDs from memory
+2. **After each capture**, Claude will tell you the exact old frame IDs to delete in Figma
+3. **You delete the old frames** in Figma: select the frame by name/ID → press Delete
+4. **Claude updates memory** with the new canonical frame IDs
+
+**Current canonical frame IDs (as of last capture):**
+
+| Frame | Design System ID | App Design ID |
+|-------|-----------------|---------------|
+| Praybara — Design Tokens | `37:2` | — |
+| Praybara — Components | `42:2` | `7:2` |
+| Praybara — Auth Screens | `44:2` | `8:2` |
+
+### 14.3 RemixIcon Font in HTML Files
+
+Always use CDN — never a local path:
+```css
+@font-face {
+  font-family: 'remixicon';
+  src: url('https://cdn.jsdelivr.net/npm/remixicon@4.6.0/fonts/remixicon.woff2') format('woff2'),
+       url('https://cdn.jsdelivr.net/npm/remixicon@4.6.0/fonts/remixicon.ttf') format('truetype');
+}
+```
+Local paths (`../Praybara/Resources/...`) cause squares in Figma's capture environment.
+
+### 14.4 Git — Commit and Push After Every Change
+
+```bash
+git add <changed files>
+git commit -m "descriptive message"
+git push
+# Remote: https://github.com/redg1402/Praybara-Design.git
+# Branch: main · User: Rafael De Guglielmo · redg402@gmail.com
+```
+
+Never leave changes uncommitted. Every code change + every Figma update = a git commit.
+
+---
+
 *Survey: 30 respondents, March 2026 · Design: Figma Praybara Design System · Frontend only — no backend scope*
