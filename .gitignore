@@ -30,5 +30,8 @@ Pods/
 .env
 *.env.local
 
+# Affinity lock files
+*.af~lock~
+
 # Logs
 *.log
