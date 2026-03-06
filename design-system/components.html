@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Praybara — Components</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://mcp.figma.com/mcp/html-to-design/capture.js" async></script>
+<style>
+  :root {
+    --gold: #E8B86D; --gold-light: #F0C878; --gold-dark: #C8923A;
+    --text-primary: #F5F0E8; --text-secondary: #A89880;
+    --error: #E57373; --success: #81C784;
+    --prayer: #C97B8A; --bible: #4A90D9; --habits: #5A9E7C; --challenges: #6B4B8A;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #060C18; color: var(--text-primary); font-family: 'DM Sans', sans-serif; padding: 80px; min-width: 1440px; }
+
+  .page-header { margin-bottom: 80px; border-bottom: 1px solid rgba(255,255,255,0.08); padding-bottom: 48px; }
+  .page-tag { font-size: 11px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); margin-bottom: 12px; }
+  .page-title { font-family: 'Cormorant Garamond', serif; font-size: 52px; font-weight: 700; color: var(--text-primary); line-height: 1; margin-bottom: 16px; }
+  .page-subtitle { font-size: 15px; color: var(--text-secondary); max-width: 560px; line-height: 1.6; }
+
+  .section { margin-bottom: 80px; }
+  .section-title { font-family: 'Cormorant Garamond', serif; font-size: 28px; font-weight: 600; margin-bottom: 6px; }
+  .section-file { font-size: 12px; color: var(--gold); font-family: monospace; margin-bottom: 8px; }
+  .section-desc { font-size: 13px; color: var(--text-secondary); margin-bottom: 32px; line-height: 1.6; }
+
+  .component-row { display: flex; gap: 24px; flex-wrap: wrap; align-items: flex-start; margin-bottom: 32px; }
+  .component-cell { display: flex; flex-direction: column; gap: 10px; }
+  .component-label { font-size: 11px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: rgba(255,255,255,0.3); }
+  .component-sublabel { font-size: 11px; color: var(--gold); font-family: monospace; }
+
+  /* GLASS */
+  .glass {
+    background: rgba(255,255,255,0.06);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid rgba(255,255,255,0.12);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+  }
+
+  /* BACKGROUND */
+  .screen-bg { background: linear-gradient(135deg,#0B1120 0%,#1B2A50 55%,#2D1B69 100%); padding: 32px; border-radius: 32px; }
+
+  /* BUTTONS */
+  .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; height: 52px; padding: 0 24px; border-radius: 16px; border: none; cursor: pointer; font-family: 'DM Sans', sans-serif; font-size: 16px; font-weight: 600; min-width: 180px; }
+  .btn-primary { background: linear-gradient(90deg,#E8B86D,#F0C878,#C8923A); color: #1A1611; }
+  .btn-secondary { background: transparent; color: var(--gold); border: 1px solid var(--gold); }
+  .btn-ghost { background: transparent; color: var(--gold); }
+  .btn-danger { background: #E57373; color: #fff; }
+  .btn-loading { opacity: 0.7; }
+  .btn-loading-inner { display: flex; align-items: center; gap: 8px; }
+  .spinner { width: 18px; height: 18px; border: 2px solid rgba(0,0,0,0.2); border-top-color: #1A1611; border-radius: 50%; animation: spin 0.8s linear infinite; }
+  .spinner-gold { border-color: rgba(232,184,109,0.2); border-top-color: var(--gold); }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* INPUT FIELDS */
+  .input-wrap { display: flex; flex-direction: column; gap: 6px; width: 280px; }
+  .input-label { font-size: 12px; font-weight: 500; color: rgba(255,255,255,0.55); font-family: 'DM Sans', sans-serif; }
+  .input-label-error { color: var(--error); }
+  .input-row { display: flex; align-items: center; gap: 8px; padding: 14px 16px; border-radius: 16px; }
+  .input-default { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.12); }
+  .input-focused { background: rgba(255,255,255,0.08); border: 1px solid rgba(232,184,109,0.65); }
+  .input-error { background: rgba(255,255,255,0.05); border: 1.5px solid rgba(229,115,115,0.75); }
+  .input-text { flex: 1; font-family: 'DM Sans', sans-serif; font-size: 15px; color: var(--text-primary); }
+  .input-placeholder { color: rgba(255,255,255,0.25); }
+  .input-value { color: var(--text-primary); }
+  .input-icon { font-size: 14px; opacity: 0.35; }
+  .input-icon-error { color: var(--error); font-size: 15px; }
+  .input-error-msg { display: flex; align-items: center; gap: 4px; color: var(--error); font-size: 12px; font-weight: 500; }
+
+  /* APPLE BUTTON */
+  .btn-apple { display: flex; align-items: center; justify-content: center; gap: 8px; height: 52px; background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.15); border-radius: 16px; color: var(--text-primary); font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 600; width: 280px; cursor: pointer; }
+
+  /* DIVIDER */
+  .auth-divider { display: flex; align-items: center; gap: 8px; width: 280px; }
+  .auth-divider-line { flex: 1; height: 1px; background: rgba(255,255,255,0.1); }
+  .auth-divider-text { font-size: 12px; font-weight: 500; color: rgba(255,255,255,0.3); }
+
+  /* BACK BUTTON */
+  .btn-back { display: inline-flex; align-items: center; gap: 6px; color: rgba(255,255,255,0.6); font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 500; cursor: pointer; background: none; border: none; }
+
+  /* STREAK BADGE */
+  .streak-badge { display: inline-flex; align-items: center; gap: 4px; padding: 4px 10px; background: linear-gradient(90deg,#E8B86D,#C8923A); border-radius: 999px; color: #1A1611; font-size: 13px; font-weight: 700; }
+
+  /* PROGRESS RING */
+  .progress-ring-wrap { display: flex; align-items: center; justify-content: center; position: relative; }
+  .progress-ring-bg { fill: none; stroke: rgba(255,255,255,0.08); }
+  .progress-ring-fill { fill: none; stroke: url(#goldGrad); stroke-linecap: round; transform: rotate(-90deg); transform-origin: 50% 50%; }
+  .progress-ring-label { position: absolute; text-align: center; }
+  .progress-ring-pct { font-family: 'DM Sans', sans-serif; font-size: 16px; font-weight: 700; color: var(--text-primary); }
+  .progress-ring-sub { font-size: 10px; color: var(--text-secondary); }
+
+  /* GLASS CARD */
+  .glass-card { border-radius: 24px; padding: 20px; }
+
+  /* BIBLE VERSE CARD */
+  .verse-card { border-radius: 20px; padding: 20px 24px; max-width: 300px; }
+  .verse-text { font-family: 'Cormorant Garamond', serif; font-size: 17px; font-style: italic; font-weight: 300; color: var(--text-primary); line-height: 1.55; margin-bottom: 12px; }
+  .verse-ref { font-family: 'Cormorant Garamond', serif; font-size: 12px; font-weight: 600; color: var(--gold); }
+  .verse-translation { font-size: 10px; color: rgba(255,255,255,0.3); margin-top: 2px; font-family: 'DM Sans', sans-serif; }
+
+  /* HABIT ROW */
+  .habit-row { display: flex; align-items: center; gap: 12px; padding: 14px 16px; border-radius: 16px; max-width: 300px; }
+  .habit-check { width: 28px; height: 28px; border-radius: 999px; border: 2px solid; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 14px; }
+  .habit-check-empty { border-color: rgba(255,255,255,0.2); }
+  .habit-check-done { background: linear-gradient(135deg,#E8B86D,#C8923A); border-color: transparent; color: #1A1611; }
+  .habit-info { flex: 1; }
+  .habit-name { font-size: 14px; font-weight: 500; color: var(--text-primary); }
+  .habit-streak { font-size: 12px; color: var(--text-secondary); margin-top: 2px; }
+  .habit-emoji { font-size: 18px; }
+
+  /* CATEGORY PILL */
+  .pill { display: inline-flex; align-items: center; padding: 6px 14px; border-radius: 999px; font-size: 13px; font-weight: 500; font-family: 'DM Sans', sans-serif; }
+  .pill-default { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); color: var(--text-secondary); }
+  .pill-selected { background: rgba(232,184,109,0.15); border: 1px solid rgba(232,184,109,0.35); color: var(--gold); }
+
+  /* SECTION HEADER */
+  .section-header { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 8px; }
+  .section-header-title { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 600; color: var(--text-primary); }
+  .section-header-action { font-size: 13px; font-weight: 500; color: var(--gold); }
+
+  /* TAB BAR */
+  .tab-bar { display: flex; align-items: center; justify-content: space-around; padding: 12px 16px 20px; border-radius: 28px; background: rgba(11,17,32,0.85); border-top: 1px solid rgba(255,255,255,0.08); backdrop-filter: blur(20px); width: 360px; }
+  .tab-item { display: flex; flex-direction: column; align-items: center; gap: 4px; cursor: pointer; }
+  .tab-icon { font-size: 22px; }
+  .tab-label { font-size: 10px; font-weight: 500; font-family: 'DM Sans', sans-serif; }
+  .tab-active .tab-icon { font-size: 26px; }
+  .tab-active .tab-label { color: var(--gold); }
+  .tab-inactive .tab-label { color: rgba(255,255,255,0.35); }
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <div class="page-tag">Praybara Design System</div>
+  <h1 class="page-title">Components</h1>
+  <p class="page-subtitle">All reusable UI components with every variant and state. Source: Components/PraybaraComponents.swift · Features/Auth/AuthComponents.swift</p>
+</div>
+
+<!-- BUTTONS -->
+<div class="section">
+  <h2 class="section-title">PraybaraButton</h2>
+  <div class="section-file">Components/PraybaraComponents.swift → PraybaraButton</div>
+  <p class="section-desc">Four styles. Always use SpringButtonStyle (0.96 scale on press). Width: fill container. Height: 52px fixed.</p>
+
+  <div class="screen-bg" style="display:inline-flex; flex-direction:column; gap:32px; min-width:700px;">
+    <div>
+      <div class="component-label" style="margin-bottom:16px; color:rgba(255,255,255,0.4);">Style = Primary &nbsp;·&nbsp; Loading = False / True</div>
+      <div class="component-row">
+        <div class="component-cell">
+          <button class="btn btn-primary">Iniciar sesión</button>
+          <div class="component-sublabel">style: .primary</div>
+        </div>
+        <div class="component-cell">
+          <button class="btn btn-primary btn-loading"><div class="btn-loading-inner"><div class="spinner"></div>Cargando…</div></button>
+          <div class="component-sublabel">isLoading: true</div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="component-label" style="margin-bottom:16px; color:rgba(255,255,255,0.4);">Style = Secondary / Ghost / Danger</div>
+      <div class="component-row">
+        <div class="component-cell">
+          <button class="btn btn-secondary">Ver todos</button>
+          <div class="component-sublabel">style: .secondary</div>
+        </div>
+        <div class="component-cell">
+          <button class="btn btn-ghost">Cancelar</button>
+          <div class="component-sublabel">style: .ghost</div>
+        </div>
+        <div class="component-cell">
+          <button class="btn btn-danger">Eliminar oración</button>
+          <div class="component-sublabel">style: .danger</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- INPUT FIELDS -->
+<div class="section">
+  <h2 class="section-title">AuthInputField</h2>
+  <div class="section-file">Features/Auth/AuthComponents.swift → AuthInputField</div>
+  <p class="section-desc">Three states. Value is NEVER cleared on error — user reads what they typed. Focus ring = gold. Error ring = red. Secure fields get eye toggle icon.</p>
+
+  <div class="screen-bg" style="display:inline-flex; gap:40px; flex-wrap:wrap; min-width:900px;">
+
+    <div class="component-cell">
+      <div class="component-label">State = Default</div>
+      <div class="input-wrap">
+        <div class="input-label">Correo electrónico</div>
+        <div class="input-row input-default">
+          <span class="input-text input-placeholder">tu@correo.com</span>
+        </div>
+      </div>
+      <div class="component-sublabel">errorMessage: nil · isFocused: false</div>
+    </div>
+
+    <div class="component-cell">
+      <div class="component-label">State = Focused</div>
+      <div class="input-wrap">
+        <div class="input-label">Correo electrónico</div>
+        <div class="input-row input-focused">
+          <span class="input-text input-value">rafael@</span>
+          <span style="width:1px;height:18px;background:var(--gold);display:inline-block;animation:blink 1s step-end infinite;"></span>
+        </div>
+      </div>
+      <div class="component-sublabel">errorMessage: nil · isFocused: true</div>
+    </div>
+
+    <div class="component-cell">
+      <div class="component-label">State = Error</div>
+      <div class="input-wrap">
+        <div class="input-label input-label-error">Correo electrónico</div>
+        <div class="input-row input-error">
+          <span class="input-text input-value">rafael@mal</span>
+          <span class="input-icon-error">⚠</span>
+        </div>
+        <div class="input-error-msg">⚠ El correo no tiene un formato válido</div>
+      </div>
+      <div class="component-sublabel">errorMessage: .invalidEmail · value preserved</div>
+    </div>
+
+    <div class="component-cell">
+      <div class="component-label">Secure Field — Hidden</div>
+      <div class="input-wrap">
+        <div class="input-label">Contraseña</div>
+        <div class="input-row input-default">
+          <span class="input-text input-value">••••••••</span>
+          <span class="input-icon">👁</span>
+        </div>
+      </div>
+      <div class="component-sublabel">isSecure: true · isRevealed: false</div>
+    </div>
+
+    <div class="component-cell">
+      <div class="component-label">Secure Field — Revealed</div>
+      <div class="input-wrap">
+        <div class="input-label">Contraseña</div>
+        <div class="input-row input-focused">
+          <span class="input-text input-value">praybara123</span>
+          <span class="input-icon" style="opacity:0.55;">🙈</span>
+        </div>
+      </div>
+      <div class="component-sublabel">isSecure: true · isRevealed: true</div>
+    </div>
+
+    <div class="component-cell">
+      <div class="component-label">Secure Field — Error</div>
+      <div class="input-wrap">
+        <div class="input-label input-label-error">Contraseña</div>
+        <div class="input-row input-error">
+          <span class="input-text input-value">••••</span>
+          <span style="display:flex;gap:6px;">
+            <span class="input-icon-error">⚠</span>
+            <span class="input-icon" style="color:var(--error);opacity:0.8;">👁</span>
+          </span>
+        </div>
+        <div class="input-error-msg">⚠ La contraseña es incorrecta</div>
+      </div>
+      <div class="component-sublabel">errorMessage: .wrongPassword · isSecure: true</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- AUTH COMPONENTS -->
+<div class="section">
+  <h2 class="section-title">Auth Support Components</h2>
+  <div class="section-file">Features/Auth/AuthComponents.swift</div>
+  <p class="section-desc">AppleSignInButton · AuthDivider · AuthBackButton · StarfieldView</p>
+
+  <div class="screen-bg" style="display:inline-flex; gap:48px; flex-wrap:wrap; min-width:900px;">
+
+    <div class="component-cell">
+      <div class="component-label">AppleSignInButton</div>
+      <button class="btn-apple">
+        <span style="font-size:17px;">🍎</span>
+        Continuar con Apple
+      </button>
+      <div class="component-sublabel">Custom styled · no AuthenticationServices needed</div>
+    </div>
+
+    <div class="component-cell">
+      <div class="component-label">AuthDivider</div>
+      <div class="auth-divider">
+        <div class="auth-divider-line"></div>
+        <span class="auth-divider-text">o continúa con</span>
+        <div class="auth-divider-line"></div>
+      </div>
+      <div class="component-sublabel">label: "o continúa con"</div>
+    </div>
+
+    <div class="component-cell">
+      <div class="component-label">AuthBackButton</div>
+      <button class="btn-back">‹ Volver</button>
+      <div class="component-sublabel">color: rgba(255,255,255,0.6)</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- CORE COMPONENTS -->
+<div class="section">
+  <h2 class="section-title">Core Components</h2>
+  <div class="section-file">Components/PraybaraComponents.swift</div>
+  <p class="section-desc">GlassCard · BibleVerseCard · StreakBadge · ProgressRing · HabitCheckButton · CategoryPill · SectionHeader · PraybaraTabBar</p>
+
+  <div class="screen-bg" style="display:inline-flex; gap:40px; flex-wrap:wrap; min-width:1100px;">
+
+    <!-- GLASS CARD -->
+    <div class="component-cell">
+      <div class="component-label">GlassCard</div>
+      <div class="glass glass-card" style="width:260px;">
+        <div style="font-family:'Cormorant Garamond',serif; font-size:16px; font-weight:600; margin-bottom:8px;">Contenido de ejemplo</div>
+        <div style="font-size:13px; color:var(--text-secondary); line-height:1.5;">Cualquier contenido puede vivir dentro de este contenedor glass.</div>
+      </div>
+      <div class="component-sublabel">.liquidGlass(cornerRadius: .lg)</div>
+    </div>
+
+    <!-- BIBLE VERSE CARD -->
+    <div class="component-cell">
+      <div class="component-label">BibleVerseCard</div>
+      <div class="glass verse-card">
+        <div class="verse-text">"Todo lo puedo en Cristo que me fortalece."</div>
+        <div class="verse-ref">Filipenses 4:13</div>
+        <div class="verse-translation">RVR60</div>
+      </div>
+      <div class="component-sublabel">book · chapter · verse · text · translation</div>
+    </div>
+
+    <!-- STREAK BADGE -->
+    <div class="component-cell">
+      <div class="component-label">StreakBadge</div>
+      <div style="display:flex; gap:12px; flex-direction:column;">
+        <div class="streak-badge">🔥 7</div>
+        <div class="streak-badge">🔥 30</div>
+        <div class="streak-badge">🔥 365</div>
+      </div>
+      <div class="component-sublabel">count: Int</div>
+    </div>
+
+    <!-- PROGRESS RING -->
+    <div class="component-cell">
+      <div class="component-label">ProgressRing</div>
+      <div class="progress-ring-wrap" style="width:80px; height:80px;">
+        <svg width="80" height="80">
+          <defs>
+            <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" style="stop-color:#E8B86D"/>
+              <stop offset="100%" style="stop-color:#C8923A"/>
+            </linearGradient>
+          </defs>
+          <circle class="progress-ring-bg" cx="40" cy="40" r="32" stroke-width="6"/>
+          <circle class="progress-ring-fill" cx="40" cy="40" r="32" stroke-width="6" stroke-dasharray="201" stroke-dashoffset="70"/>
+        </svg>
+        <div class="progress-ring-label">
+          <div class="progress-ring-pct">65%</div>
+          <div class="progress-ring-sub">hoy</div>
+        </div>
+      </div>
+      <div class="component-sublabel">progress: 0.65 · animated circular</div>
+    </div>
+
+    <!-- HABIT ROW -->
+    <div class="component-cell">
+      <div class="component-label">HabitCheckButton</div>
+      <div style="display:flex; flex-direction:column; gap:10px;">
+        <div class="glass habit-row">
+          <span class="habit-emoji">🙏</span>
+          <div class="habit-check habit-check-empty"></div>
+          <div class="habit-info">
+            <div class="habit-name">Oración matutina</div>
+            <div class="habit-streak">🔥 7 días</div>
+          </div>
+        </div>
+        <div class="glass habit-row">
+          <span class="habit-emoji">📖</span>
+          <div class="habit-check habit-check-done">✓</div>
+          <div class="habit-info">
+            <div class="habit-name">Lectura bíblica</div>
+            <div class="habit-streak" style="color:var(--gold);">✓ Completado</div>
+          </div>
+        </div>
+      </div>
+      <div class="component-sublabel">isCompleted: false / true · streak: Int</div>
+    </div>
+
+    <!-- CATEGORY PILLS -->
+    <div class="component-cell">
+      <div class="component-label">CategoryPill</div>
+      <div style="display:flex; gap:8px; flex-wrap:wrap; max-width:280px;">
+        <span class="pill pill-selected">Todos</span>
+        <span class="pill pill-default">Familia</span>
+        <span class="pill pill-default">Salud</span>
+        <span class="pill pill-default">Trabajo</span>
+        <span class="pill pill-default">Iglesia</span>
+      </div>
+      <div class="component-sublabel">isSelected: true / false</div>
+    </div>
+
+    <!-- SECTION HEADER -->
+    <div class="component-cell">
+      <div class="component-label">SectionHeader</div>
+      <div style="width:300px;">
+        <div class="section-header">
+          <div class="section-header-title">Mis oraciones</div>
+          <div class="section-header-action">Ver todas →</div>
+        </div>
+        <div style="font-size:13px; color:var(--text-secondary);">4 peticiones activas</div>
+      </div>
+      <div class="component-sublabel">title · subtitle · action (optional)</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- TAB BAR -->
+<div class="section">
+  <h2 class="section-title">PraybaraTabBar</h2>
+  <div class="section-file">Features/MainTabView.swift</div>
+  <p class="section-desc">Custom tab bar — NEVER use native SwiftUI TabView. Active tab: gold, slightly larger. .ultraThinMaterial background.</p>
+
+  <div class="screen-bg" style="display:inline-flex; flex-direction:column; gap:24px; min-width:480px;">
+    <div class="component-label">Tab = Home active</div>
+    <div class="tab-bar">
+      <div class="tab-item tab-active">
+        <div class="tab-icon">🏠</div>
+        <div class="tab-label">Inicio</div>
+      </div>
+      <div class="tab-item tab-inactive">
+        <div class="tab-icon">📖</div>
+        <div class="tab-label">Biblia</div>
+      </div>
+      <div class="tab-item tab-inactive">
+        <div class="tab-icon">🙏</div>
+        <div class="tab-label">Oración</div>
+      </div>
+      <div class="tab-item tab-inactive">
+        <div class="tab-icon">✅</div>
+        <div class="tab-label">Hábitos</div>
+      </div>
+      <div class="tab-item tab-inactive">
+        <div class="tab-icon">👥</div>
+        <div class="tab-label">Iglesia</div>
+      </div>
+    </div>
+    <div class="component-sublabel">activeTab: .home · background: .ultraThinMaterial + rgba(11,17,32,0.85)</div>
+  </div>
+</div>
+
+</body>
+</html>

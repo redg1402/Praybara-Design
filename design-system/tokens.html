@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Praybara — Design Tokens</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://mcp.figma.com/mcp/html-to-design/capture.js" async></script>
+<style>
+  :root {
+    --bg-dark-primary:   #0B1120;
+    --bg-dark-secondary: #111827;
+    --bg-light-primary:  #FEFDF9;
+    --bg-light-secondary:#F0EBE3;
+    --brand-celestial:   #1B3A6B;
+    --brand-gold:        #E8B86D;
+    --brand-gold-light:  #F0C878;
+    --brand-gold-dark:   #C8923A;
+    --brand-midnight:    #0B1120;
+    --brand-cosmic:      #2D1B69;
+    --accent-prayer:     #C97B8A;
+    --accent-bible:      #4A90D9;
+    --accent-habits:     #5A9E7C;
+    --accent-challenges: #6B4B8A;
+    --text-dark-primary: #F5F0E8;
+    --text-dark-secondary:#A89880;
+    --text-light-primary:#1A1611;
+    --text-light-secondary:#5C5248;
+    --error:             #E57373;
+    --success:           #81C784;
+    --spacing-xs: 4px; --spacing-sm: 8px; --spacing-md: 16px;
+    --spacing-lg: 24px; --spacing-xl: 32px; --spacing-xxl: 48px; --spacing-xxxl: 64px;
+    --radius-sm: 10px; --radius-md: 16px; --radius-lg: 24px; --radius-xl: 32px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: #060C18;
+    color: var(--text-dark-primary);
+    font-family: 'DM Sans', sans-serif;
+    padding: 80px 80px 120px;
+    min-width: 1440px;
+  }
+
+  /* PAGE HEADER */
+  .page-header { margin-bottom: 80px; border-bottom: 1px solid rgba(255,255,255,0.08); padding-bottom: 48px; }
+  .page-tag { font-family: 'DM Sans', sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--brand-gold); margin-bottom: 12px; }
+  .page-title { font-family: 'Cormorant Garamond', serif; font-size: 52px; font-weight: 700; color: var(--text-dark-primary); line-height: 1; margin-bottom: 16px; }
+  .page-subtitle { font-size: 15px; color: var(--text-dark-secondary); max-width: 560px; line-height: 1.6; }
+
+  /* SECTION */
+  .section { margin-bottom: 80px; }
+  .section-title { font-family: 'Cormorant Garamond', serif; font-size: 28px; font-weight: 600; color: var(--text-dark-primary); margin-bottom: 8px; }
+  .section-desc { font-size: 13px; color: var(--text-dark-secondary); margin-bottom: 32px; font-family: 'DM Sans', sans-serif; }
+  .token-label { font-size: 11px; font-weight: 500; color: var(--text-dark-secondary); font-family: 'DM Sans', sans-serif; letter-spacing: 0.5px; margin-top: 6px; }
+  .token-hex { font-size: 11px; color: rgba(255,255,255,0.3); font-family: monospace; margin-top: 2px; }
+  .swift-ref { font-size: 10px; color: var(--brand-gold); font-family: monospace; margin-top: 2px; opacity: 0.7; }
+
+  /* COLOR GRID */
+  .color-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 16px; }
+  .color-chip { display: flex; flex-direction: column; }
+  .color-swatch { width: 100%; height: 72px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.08); }
+
+  /* COLOR GROUPS */
+  .color-groups { display: flex; flex-direction: column; gap: 40px; }
+  .color-group-label { font-size: 11px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: rgba(255,255,255,0.3); margin-bottom: 16px; }
+
+  /* GRADIENT ROW */
+  .gradient-row { display: flex; gap: 16px; flex-wrap: wrap; }
+  .gradient-chip { display: flex; flex-direction: column; gap: 6px; }
+  .gradient-swatch { width: 200px; height: 96px; border-radius: 16px; border: 1px solid rgba(255,255,255,0.08); }
+
+  /* TYPOGRAPHY */
+  .type-table { display: flex; flex-direction: column; gap: 24px; }
+  .type-row { display: flex; align-items: baseline; gap: 40px; padding: 20px 24px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06); border-radius: 12px; }
+  .type-meta { min-width: 200px; }
+  .type-meta-name { font-size: 12px; font-weight: 600; color: var(--brand-gold); font-family: monospace; }
+  .type-meta-spec { font-size: 11px; color: rgba(255,255,255,0.35); margin-top: 4px; }
+
+  /* SPACING */
+  .spacing-row { display: flex; align-items: center; gap: 20px; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.04); }
+  .spacing-bar-wrap { display: flex; align-items: center; gap: 12px; }
+  .spacing-bar { height: 16px; background: linear-gradient(90deg, var(--brand-gold), var(--brand-gold-dark)); border-radius: 4px; opacity: 0.7; }
+  .spacing-name { font-family: monospace; font-size: 12px; color: var(--brand-gold); min-width: 140px; }
+  .spacing-px { font-size: 12px; color: var(--text-dark-secondary); min-width: 40px; }
+
+  /* RADIUS */
+  .radius-row { display: flex; gap: 24px; flex-wrap: wrap; }
+  .radius-chip { display: flex; flex-direction: column; align-items: center; gap: 10px; }
+  .radius-box { width: 80px; height: 80px; background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.12); }
+
+  /* EFFECTS */
+  .effects-row { display: flex; gap: 24px; flex-wrap: wrap; }
+  .effect-chip { display: flex; flex-direction: column; gap: 8px; }
+  .glass-demo { width: 200px; height: 100px; border-radius: 20px; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 500; }
+  .glass-dark {
+    background: rgba(255,255,255,0.06);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid rgba(255,255,255,0.12);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+    color: var(--text-dark-primary);
+  }
+  .glass-gold-tinted {
+    background: rgba(232,184,109,0.08);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid rgba(232,184,109,0.25);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+    color: var(--text-dark-primary);
+  }
+  .glass-light {
+    background: rgba(255,255,255,0.55);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid rgba(255,255,255,0.85);
+    box-shadow: 0 8px 20px rgba(184,160,144,0.2);
+    color: var(--text-light-primary);
+  }
+  .glass-bg { background: linear-gradient(135deg, #0B1120 0%, #1B2A50 55%, #2D1B69 100%); padding: 24px; border-radius: 28px; }
+  .glass-bg-light { background: linear-gradient(180deg, #FEFDF9 0%, #F5ECD8 60%, #EDE0CC 100%); padding: 24px; border-radius: 28px; }
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <div class="page-tag">Praybara Design System</div>
+  <h1 class="page-title">Design Tokens</h1>
+  <p class="page-subtitle">Single source of truth for all colors, typography, spacing, radii, gradients and effects. All values are mapped 1:1 to PraybaraTheme.swift.</p>
+</div>
+
+<!-- COLORS -->
+<div class="section">
+  <h2 class="section-title">Colors</h2>
+  <p class="section-desc">All color tokens. In Swift: PraybaraColors.X — In CSS: var(--X)</p>
+
+  <div class="color-groups">
+
+    <div>
+      <div class="color-group-label">Backgrounds — Dark</div>
+      <div class="color-grid" style="max-width:320px;">
+        <div class="color-chip">
+          <div class="color-swatch" style="background:#0B1120;"></div>
+          <div class="token-label">bg/dark/primary</div>
+          <div class="token-hex">#0B1120</div>
+          <div class="swift-ref">PraybaraColors.bgDarkPrimary</div>
+        </div>
+        <div class="color-chip">
+          <div class="color-swatch" style="background:#111827;"></div>
+          <div class="token-label">bg/dark/secondary</div>
+          <div class="token-hex">#111827</div>
+          <div class="swift-ref">PraybaraColors.bgDarkSecondary</div>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="color-group-label">Backgrounds — Light</div>
+      <div class="color-grid" style="max-width:320px;">
+        <div class="color-chip">
+          <div class="color-swatch" style="background:#FEFDF9; border-color:rgba(0,0,0,0.08);"></div>
+          <div class="token-label">bg/light/primary</div>
+          <div class="token-hex">#FEFDF9</div>
+          <div class="swift-ref">PraybaraColors.bgLightPrimary</div>
+        </div>
+        <div class="color-chip">
+          <div class="color-swatch" style="background:#F0EBE3; border-color:rgba(0,0,0,0.08);"></div>
+          <div class="token-label">bg/light/secondary</div>
+          <div class="token-hex">#F0EBE3</div>
+          <div class="swift-ref">PraybaraColors.bgLightSecondary</div>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="color-group-label">Brand</div>
+      <div class="color-grid">
+        <div class="color-chip">
+          <div class="color-swatch" style="background:#1B3A6B;"></div>
+          <div class="token-label">brand/celestial</div>
+          <div class="token-hex">#1B3A6B</div>
+          <div class="swift-ref">.celestial</div>
+        </div>
+        <div class="color-chip">
+          <div class="color-swatch" style="background:linear-gradient(135deg,#E8B86D,#F0C878,#C8923A);"></div>
+          <div class="token-label">brand/gold ★ PRIMARY</div>
+          <div class="token-hex">#E8B86D</div>
+          <div class="swift-ref">.gold</div>
+        </div>
+        <div class="color-chip">
+          <div class="color-swatch" style="background:#F0C878;"></div>
+          <div class="token-label">brand/gold-light</div>
+          <div class="token-hex">#F0C878</div>
+          <div class="swift-ref">.goldLight</div>
+        </div>
+        <div class="color-chip">
+          <div class="color-swatch" style="background:#C8923A;"></div>
+          <div class="token-label">brand/gold-dark</div>
+          <div class="token-hex">#C8923A</div>
+          <div class="swift-ref">.goldDark</div>
+        </div>
+        <div class="color-chip">
+          <div class="color-swatch" style="background:#0B1120;"></div>
+          <div class="token-label">brand/midnight</div>
+          <div class="token-hex">#0B1120</div>
+          <div class="swift-ref">.midnight</div>
+        </div>
+        <div class="color-chip">
+          <div class="color-swatch" style="background:#2D1B69;"></div>
+          <div class="token-label">brand/cosmic</div>
+          <div class="token-hex">#2D1B69</div>
+          <div class="swift-ref">.cosmic</div>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="color-group-label">Feature Accents — one per tab</div>
+      <div class="color-grid">
+        <div class="color-chip">
+          <div class="color-swatch" style="background:#C97B8A;"></div>
+          <div class="token-label">accent/prayer</div>
+          <div class="token-hex">#C97B8A</div>
+          <div class="swift-ref">.prayer</div>
+        </div>
+        <div class="color-chip">
+          <div class="color-swatch" style="background:#4A90D9;"></div>
+          <div class="token-label">accent/bible</div>
+          <div class="token-hex">#4A90D9</div>
+          <div class="swift-ref">.bible</div>
+        </div>
+        <div class="color-chip">
+          <div class="color-swatch" style="background:#5A9E7C;"></div>
+          <div class="token-label">accent/habits</div>
+          <div class="token-hex">#5A9E7C</div>
+          <div class="swift-ref">.habits</div>
+        </div>
+        <div class="color-chip">
+          <div class="color-swatch" style="background:#6B4B8A;"></div>
+          <div class="token-label">accent/challenges</div>
+          <div class="token-hex">#6B4B8A</div>
+          <div class="swift-ref">.challenges</div>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="color-group-label">Text</div>
+      <div class="color-grid">
+        <div class="color-chip">
+          <div class="color-swatch" style="background:#F5F0E8;"></div>
+          <div class="token-label">text/dark/primary</div>
+          <div class="token-hex">#F5F0E8</div>
+          <div class="swift-ref">.textDarkPrimary</div>
+        </div>
+        <div class="color-chip">
+          <div class="color-swatch" style="background:#A89880;"></div>
+          <div class="token-label">text/dark/secondary</div>
+          <div class="token-hex">#A89880</div>
+          <div class="swift-ref">.textDarkSecondary</div>
+        </div>
+        <div class="color-chip">
+          <div class="color-swatch" style="background:#1A1611; border-color:rgba(0,0,0,0.15);"></div>
+          <div class="token-label">text/light/primary</div>
+          <div class="token-hex">#1A1611</div>
+          <div class="swift-ref">.textLightPrimary</div>
+        </div>
+        <div class="color-chip">
+          <div class="color-swatch" style="background:#5C5248;"></div>
+          <div class="token-label">text/light/secondary</div>
+          <div class="token-hex">#5C5248</div>
+          <div class="swift-ref">.textLightSecondary</div>
+        </div>
+        <div class="color-chip">
+          <div class="color-swatch" style="background:#E57373;"></div>
+          <div class="token-label">semantic/error</div>
+          <div class="token-hex">#E57373</div>
+          <div class="swift-ref">.error</div>
+        </div>
+        <div class="color-chip">
+          <div class="color-swatch" style="background:#81C784;"></div>
+          <div class="token-label">semantic/success</div>
+          <div class="token-hex">#81C784</div>
+          <div class="swift-ref">.success</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- GRADIENTS -->
+<div class="section">
+  <h2 class="section-title">Gradients</h2>
+  <p class="section-desc">PraybaraGradients.X — Used as full-screen backgrounds and accent fills.</p>
+  <div class="gradient-row">
+    <div class="gradient-chip">
+      <div class="gradient-swatch" style="background:linear-gradient(135deg,#0B1120 0%,#1B2A50 55%,#2D1B69 100%);"></div>
+      <div class="token-label">gradient/bg/celestial-dark</div>
+      <div class="swift-ref">PraybaraGradients.celestialDark</div>
+    </div>
+    <div class="gradient-chip">
+      <div class="gradient-swatch" style="background:linear-gradient(180deg,#FEFDF9 0%,#F5ECD8 60%,#EDE0CC 100%); border-color:rgba(0,0,0,0.08);"></div>
+      <div class="token-label">gradient/bg/dawn-light</div>
+      <div class="swift-ref">PraybaraGradients.dawnLight</div>
+    </div>
+    <div class="gradient-chip">
+      <div class="gradient-swatch" style="background:linear-gradient(90deg,#E8B86D,#F0C878,#C8923A);"></div>
+      <div class="token-label">gradient/accent/gold</div>
+      <div class="swift-ref">PraybaraGradients.goldAccent</div>
+    </div>
+    <div class="gradient-chip">
+      <div class="gradient-swatch" style="background:linear-gradient(135deg,#0B1120,#1a0d20,#2D1B69);"></div>
+      <div class="token-label">gradient/feature/prayer/dark</div>
+      <div class="swift-ref">PraybaraGradients.featurePrayer</div>
+    </div>
+    <div class="gradient-chip">
+      <div class="gradient-swatch" style="background:linear-gradient(135deg,#0B1120,#0d1526,#1B3A6B);"></div>
+      <div class="token-label">gradient/feature/bible/dark</div>
+      <div class="swift-ref">PraybaraGradients.featureBible</div>
+    </div>
+    <div class="gradient-chip">
+      <div class="gradient-swatch" style="background:linear-gradient(135deg,#0B1120,#0d1f14,#1a3020);"></div>
+      <div class="token-label">gradient/feature/habits/dark</div>
+      <div class="swift-ref">PraybaraGradients.featureHabits</div>
+    </div>
+  </div>
+</div>
+
+<!-- TYPOGRAPHY -->
+<div class="section">
+  <h2 class="section-title">Typography</h2>
+  <p class="section-desc">Display: Cormorant Garamond (serif). Body + Label: DM Sans (rounded). Scripture: Cormorant Garamond italic light.</p>
+  <div class="type-table">
+    <div class="type-row">
+      <div class="type-meta"><div class="type-meta-name">type/display/hero</div><div class="type-meta-spec">Cormorant · 40px · Bold · serif</div><div class="swift-ref">PraybaraFonts.display(40, .bold)</div></div>
+      <div style="font-family:'Cormorant Garamond',serif; font-size:40px; font-weight:700; color:var(--text-dark-primary);">Disciplina. Profundidad.</div>
+    </div>
+    <div class="type-row">
+      <div class="type-meta"><div class="type-meta-name">type/display/h1</div><div class="type-meta-spec">Cormorant · 28px · Bold · serif</div><div class="swift-ref">PraybaraFonts.display(28, .bold)</div></div>
+      <div style="font-family:'Cormorant Garamond',serif; font-size:28px; font-weight:700; color:var(--text-dark-primary);">Bienvenido de vuelta</div>
+    </div>
+    <div class="type-row">
+      <div class="type-meta"><div class="type-meta-name">type/display/h2</div><div class="type-meta-spec">Cormorant · 22px · SemiBold · serif</div><div class="swift-ref">PraybaraFonts.display(22, .semibold)</div></div>
+      <div style="font-family:'Cormorant Garamond',serif; font-size:22px; font-weight:600; color:var(--text-dark-primary);">Crea tu cuenta</div>
+    </div>
+    <div class="type-row">
+      <div class="type-meta"><div class="type-meta-name">type/display/h3</div><div class="type-meta-spec">Cormorant · 18px · SemiBold · serif</div><div class="swift-ref">PraybaraFonts.display(18, .semibold)</div></div>
+      <div style="font-family:'Cormorant Garamond',serif; font-size:18px; font-weight:600; color:var(--text-dark-primary);">Devocional de hoy</div>
+    </div>
+    <div class="type-row">
+      <div class="type-meta"><div class="type-meta-name">type/body/regular</div><div class="type-meta-spec">DM Sans · 15px · Regular · rounded</div><div class="swift-ref">PraybaraFonts.body(15)</div></div>
+      <div style="font-family:'DM Sans',sans-serif; font-size:15px; font-weight:400; color:var(--text-dark-primary);">Tu compañero espiritual diario</div>
+    </div>
+    <div class="type-row">
+      <div class="type-meta"><div class="type-meta-name">type/body/semibold</div><div class="type-meta-spec">DM Sans · 16px · SemiBold · rounded</div><div class="swift-ref">PraybaraFonts.body(16, .semibold)</div></div>
+      <div style="font-family:'DM Sans',sans-serif; font-size:16px; font-weight:600; color:var(--text-dark-primary);">Iniciar sesión</div>
+    </div>
+    <div class="type-row">
+      <div class="type-meta"><div class="type-meta-name">type/label/sm</div><div class="type-meta-spec">DM Sans · 13px · Medium · rounded</div><div class="swift-ref">PraybaraFonts.label(13)</div></div>
+      <div style="font-family:'DM Sans',sans-serif; font-size:13px; font-weight:500; color:var(--text-dark-secondary);">Correo electrónico</div>
+    </div>
+    <div class="type-row">
+      <div class="type-meta"><div class="type-meta-name">type/label/xs</div><div class="type-meta-spec">DM Sans · 11px · Medium · rounded</div><div class="swift-ref">PraybaraFonts.label(11)</div></div>
+      <div style="font-family:'DM Sans',sans-serif; font-size:11px; font-weight:500; letter-spacing:1px; text-transform:uppercase; color:var(--text-dark-secondary);">Design System · v1.0</div>
+    </div>
+    <div class="type-row">
+      <div class="type-meta"><div class="type-meta-name">type/scripture/verse</div><div class="type-meta-spec">Cormorant · 18px · Light · Italic · serif</div><div class="swift-ref">PraybaraFonts.scripture(18)</div></div>
+      <div style="font-family:'Cormorant Garamond',serif; font-size:18px; font-weight:300; font-style:italic; color:var(--brand-gold); opacity:0.85;">"Todo lo puedo en Cristo que me fortalece."</div>
+    </div>
+  </div>
+</div>
+
+<!-- SPACING -->
+<div class="section">
+  <h2 class="section-title">Spacing</h2>
+  <p class="section-desc">PraybaraSpacing.X — Use these constants for all padding, margin and gap values. Never hardcode px values.</p>
+  <div style="max-width:600px;">
+    <div class="spacing-row"><span class="spacing-name">PraybaraSpacing.xs</span><span class="spacing-px">4px</span><div class="spacing-bar-wrap"><div class="spacing-bar" style="width:4px;"></div></div></div>
+    <div class="spacing-row"><span class="spacing-name">PraybaraSpacing.sm</span><span class="spacing-px">8px</span><div class="spacing-bar-wrap"><div class="spacing-bar" style="width:8px;"></div></div></div>
+    <div class="spacing-row"><span class="spacing-name">PraybaraSpacing.md</span><span class="spacing-px">16px</span><div class="spacing-bar-wrap"><div class="spacing-bar" style="width:16px;"></div></div></div>
+    <div class="spacing-row"><span class="spacing-name">PraybaraSpacing.lg</span><span class="spacing-px">24px</span><div class="spacing-bar-wrap"><div class="spacing-bar" style="width:24px;"></div></div></div>
+    <div class="spacing-row"><span class="spacing-name">PraybaraSpacing.xl</span><span class="spacing-px">32px</span><div class="spacing-bar-wrap"><div class="spacing-bar" style="width:32px;"></div></div></div>
+    <div class="spacing-row"><span class="spacing-name">PraybaraSpacing.xxl</span><span class="spacing-px">48px</span><div class="spacing-bar-wrap"><div class="spacing-bar" style="width:48px;"></div></div></div>
+    <div class="spacing-row"><span class="spacing-name">PraybaraSpacing.xxxl</span><span class="spacing-px">64px</span><div class="spacing-bar-wrap"><div class="spacing-bar" style="width:64px;"></div></div></div>
+  </div>
+</div>
+
+<!-- CORNER RADIUS -->
+<div class="section">
+  <h2 class="section-title">Corner Radius</h2>
+  <p class="section-desc">PraybaraRadius.X — Always use RoundedRectangle(cornerRadius: PraybaraRadius.X, style: .continuous)</p>
+  <div class="radius-row">
+    <div class="radius-chip">
+      <div class="radius-box" style="border-radius:10px;"></div>
+      <div class="token-label">radius/sm</div>
+      <div class="token-hex">10px</div>
+      <div class="swift-ref">PraybaraRadius.sm</div>
+    </div>
+    <div class="radius-chip">
+      <div class="radius-box" style="border-radius:16px;"></div>
+      <div class="token-label">radius/md</div>
+      <div class="token-hex">16px</div>
+      <div class="swift-ref">PraybaraRadius.md</div>
+    </div>
+    <div class="radius-chip">
+      <div class="radius-box" style="border-radius:24px;"></div>
+      <div class="token-label">radius/lg</div>
+      <div class="token-hex">24px</div>
+      <div class="swift-ref">PraybaraRadius.lg</div>
+    </div>
+    <div class="radius-chip">
+      <div class="radius-box" style="border-radius:32px;"></div>
+      <div class="token-label">radius/xl</div>
+      <div class="token-hex">32px</div>
+      <div class="swift-ref">PraybaraRadius.xl</div>
+    </div>
+    <div class="radius-chip">
+      <div class="radius-box" style="border-radius:999px; width:80px; height:36px; margin-top:22px;"></div>
+      <div class="token-label">radius/pill</div>
+      <div class="token-hex">999px</div>
+      <div class="swift-ref">PraybaraRadius.pill</div>
+    </div>
+  </div>
+</div>
+
+<!-- LIQUID GLASS EFFECTS -->
+<div class="section">
+  <h2 class="section-title">Liquid Glass Effects</h2>
+  <p class="section-desc">iOS 26 Liquid Glass — the primary surface language. In code: .liquidGlass(cornerRadius:) modifier. Never recreate glass manually.</p>
+  <div class="effects-row">
+    <div class="effect-chip">
+      <div class="glass-bg">
+        <div class="glass-demo glass-dark">Glass / Dark</div>
+      </div>
+      <div class="token-label" style="margin-top:8px;">effect/glass/dark</div>
+      <div class="token-hex">rgba(255,255,255,0.06) · blur 24 · border 0.12 · shadow 40%</div>
+      <div class="swift-ref">.liquidGlass(cornerRadius: .lg)</div>
+    </div>
+    <div class="effect-chip">
+      <div class="glass-bg">
+        <div class="glass-demo glass-gold-tinted">Glass / Gold-Tinted</div>
+      </div>
+      <div class="token-label" style="margin-top:8px;">effect/glass/gold-tinted</div>
+      <div class="token-hex">rgba(232,184,109,0.08) · border gold 0.25</div>
+      <div class="swift-ref">.liquidGlass(cornerRadius: .lg, tintColor: .gold)</div>
+    </div>
+    <div class="effect-chip">
+      <div class="glass-bg-light">
+        <div class="glass-demo glass-light" style="color:#1A1611;">Glass / Light</div>
+      </div>
+      <div class="token-label" style="margin-top:8px;">effect/glass/light</div>
+      <div class="token-hex">rgba(255,255,255,0.55) · border 0.85 · shadow 20%</div>
+      <div class="swift-ref">.liquidGlass(cornerRadius: .lg)</div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
