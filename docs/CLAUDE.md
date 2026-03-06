@@ -1196,13 +1196,19 @@ The Figma MCP capture tool always **adds new frames** — it cannot replace exis
 3. **You delete the old frames** in Figma: select the frame by name/ID → press Delete
 4. **Claude updates memory** with the new canonical frame IDs
 
-**Current canonical frame IDs (as of last capture):**
+**Frame versioning rule:**
+- Every HTML design file has a version number in its `<title>` and heading (e.g. `v3`)
+- When a frame is updated, increment the version number in the HTML file BEFORE capturing
+- The captured Figma frame will show the version in its name (e.g. "Praybara — Auth Screens v3")
+- After each capture, tell the user which old versioned frame to delete in Figma
 
-| Frame | Design System ID | App Design ID |
-|-------|-----------------|---------------|
-| Praybara — Design Tokens | `37:2` | — |
-| Praybara — Components | `42:2` | `7:2` |
-| Praybara — Auth Screens | `44:2` | `8:2` |
+**Current canonical frame versions (always update this table after every capture):**
+
+| Frame | Version | Design System ID | App Design ID |
+|-------|---------|-----------------|---------------|
+| Praybara — Design Tokens | v1 | `37:2` | — |
+| Praybara — Components | v2 | `42:2` | `7:2` |
+| Praybara — Auth Screens | v3 | `44:2` | `8:2` |
 
 ### 14.3 RemixIcon Font in HTML Files
 
